@@ -51,8 +51,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 ├── README.md
 └── assets
     ├── css/style.css   tema claro/escuro automático, hairlines, tipografia do sistema
-    ├── js/main.js      animações de entrada (GSAP + IntersectionObserver)
-    └── vendor/gsap.min.js
+    ├── js/main.js      animações de entrada, scroll suavizado e âncoras internas
+    └── vendor/          GSAP 3.13.0: núcleo + ScrollTrigger, ScrollSmoother, SplitText
 ```
 
 ## Atualizar conteúdo
@@ -70,10 +70,21 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   elementos depois de o GSAP carregar. O nome no herói é dividido em palavras
   para a animação; sem JavaScript fica texto simples (o texto lido por leitores
   de ecrã e copiado é sempre o mesmo).
-- **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações.
+- **Scroll suavizado** (ScrollSmoother): o conteúdo é deslocado por *transform*
+  dentro de um wrapper fixo, mas a barra de scroll e a altura do documento
+  continuam nativas. Em ecrãs táteis mantém-se o scroll nativo. Os links
+  internos (`#projetos`, `#stack`, `#contacto` e voltar ao topo) são conduzidos
+  pelo plugin, com o foco a seguir para o destino.
+- **Nome do herói** dividido em palavras pelo SplitText, com alternativa própria
+  caso o plugin não carregue; o `<h1>` conserva o `aria-label` completo e as
+  palavras ficam decorativas para leitores de ecrã.
+- **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações
+  e o scroll suavizado, ficando o scroll e o texto nativos.
 - Os blocos aparecem quando entram no ecrã (IntersectionObserver), com um
   varrimento a cada scroll como rede de segurança: nenhum bloco pode ficar
   escondido se o observer falhar.
 - O ano no rodapé é atualizado automaticamente por `assets/js/main.js`.
+- `assets/vendor/` traz o GSAP 3.13.0 (núcleo e os três plugins) servido
+  localmente: não há dependências externas nem pedidos de rede.
 - Pré-visualização local: basta abrir `index.html` no navegador
   (não há módulos nem pedidos de rede para além dos ficheiros locais).

@@ -36,9 +36,11 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Sem `scroll-behavior: smooth`: quem suaviza o scroll é o ScrollSmoother e a
+   transição nativa entraria em conflito com ele. Sem JavaScript o salto é
+   imediato, que é o comportamento correto para movimento reduzido. */
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -146,15 +148,18 @@ h1 {
   text-wrap: balance;
 }
 
-/* Máscara de cada palavra do nome (preenchida por main.js). */
-.word {
+/* Máscara de cada palavra do nome, criada pelo SplitText (`.word-mask`, com a
+   palavra em `.word`); sem o plugin, main.js cria exatamente a mesma
+   estrutura. O padding dá espaço a acentos e descidas e as margens negativas
+   devolvem esse espaço ao layout, para nada ficar cortado. */
+.word-mask {
   display: inline-block;
-  overflow: hidden;
+  overflow: clip;
   padding: .08em 0 .2em;
   margin: -.08em 0 -.2em;
 }
 
-.word__i { display: inline-block; }
+.word { display: inline-block; }
 
 .hero__foot {
   display: grid;
@@ -360,8 +365,9 @@ h2 {
 
 /* ---------- acessibilidade ---------- */
 
+/* Vive fora de #smooth-wrapper (que é fixo), por isso é ancorado ao ecrã. */
 .skip {
-  position: absolute;
+  position: fixed;
   left: -9999px;
   top: 0;
 }
@@ -381,9 +387,15 @@ h2 {
 
 :focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
+/* Destinos de âncora focados pelo nosso JS, para o teclado continuar dali.
+   Não são controlos, por isso um contorno à volta de uma secção inteira não
+   ajudaria ninguém. */
+#topo:focus,
+.section:focus {
+  outline: none;
+}
 
+@media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;

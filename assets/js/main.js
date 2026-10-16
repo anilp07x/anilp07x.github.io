@@ -1,6 +1,6 @@
-/* Animações suaves de entrada (GSAP).
+/* Animações suaves de entrada (GSAP) e scroll suavizado (ScrollSmoother).
    Sem JavaScript, sem GSAP ou com movimento reduzido, o conteúdo fica
-   simplesmente visível: a animação é sempre progressiva. */
+   simplesmente visível e a página rola como sempre: tudo isto é progressivo. */
 (function () {
   'use strict';
 
@@ -12,18 +12,99 @@
   var canObserve = 'IntersectionObserver' in window;
   if (!gsapReady || reduced || !canObserve) return;
 
-  var revealTargets = document.querySelectorAll('[data-reveal]');
+  /* O scroll suavizado entra primeiro: fixa o wrapper e acerta a altura do
+     body. Se falhar, a página fica simplesmente com o scroll nativo. */
+  try {
+    smoothScroll();
+  } catch (err) {
+    console.warn('Scroll suavizado desativado:', err);
+  }
 
   try {
     heroIntro();
     scrollReveals();
   } catch (err) {
-    if (window.gsap) gsap.set(document.querySelectorAll('[data-reveal], .word__i'), { clearProps: 'all' });
+    if (window.gsap) gsap.set(document.querySelectorAll('[data-reveal], .word'), { clearProps: 'all' });
     console.warn('Animação desativada:', err);
   }
 
-  /* Divide o nome em palavras, cada uma dentro da sua máscara.
-     Os espaços ficam no texto: leitores de ecrã e copiar/colar não mudam. */
+  /* ScrollSmoother: o conteúdo (dentro de um wrapper fixo) é deslocado por
+     transform e segue o scroll com um pequeno atraso — é daí que vem a
+     suavidade. Em ecrãs táteis mantém-se o scroll nativo, que é a predefinição
+     do plugin, e o foco fora do conteúdo (o link de saltar) não o arrasta. */
+  function smoothScroll() {
+    if (typeof window.ScrollSmoother === 'undefined' || typeof window.ScrollTrigger === 'undefined') return;
+
+    var skip = document.querySelector('.skip');
+    var ignoreFocus = false;
+
+    gsap.registerPlugin(window.ScrollTrigger, window.ScrollSmoother);
+    var smoother = window.ScrollSmoother.create({
+      wrapper: '#smooth-wrapper',
+      content: '#smooth-content',
+      smooth: 1,
+      onFocusIn: function (self, e) {
+        /* O foco que nós próprios damos aos destinos das âncoras não deve
+           mexer no scroll, nem o link de saltar, que vive fora do conteúdo. */
+        if (ignoreFocus || (skip && (skip === e.target || skip.contains(e.target)))) return false;
+      }
+    });
+
+    if (!smoother) return;
+
+    /* Âncoras internas: com o wrapper fixo, o salto nativo do browser tenta
+       rolar o próprio wrapper e não acerta no destino. Nesse caso quem rola é
+       o ScrollSmoother; com o wrapper normal (ecrã tátil, sem suavização)
+       deixamos o browser fazer o que sempre fez. O foco vai para o destino,
+       para quem navega por teclado continuar a partir dali. */
+    document.addEventListener('click', function (e) {
+      if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (!e.target || !e.target.closest) return;
+
+      var wrapper = smoother.wrapper();
+      if (!wrapper || window.getComputedStyle(wrapper).position !== 'fixed') return;
+
+      var link = e.target.closest('a[href^="#"]');
+      var hash = link && link.getAttribute('href');
+      if (!hash || !/^#[A-Za-z][\w-]*$/.test(hash)) return;
+
+      var target = document.querySelector(hash);
+      if (!target) return;
+
+      e.preventDefault();
+      if (window.history && history.pushState) history.pushState(null, '', hash);
+
+      ignoreFocus = true;
+      if (typeof target.focus === 'function') {
+        if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+        target.focus({ preventScroll: true });
+      }
+      ignoreFocus = false;
+
+      smoother.scrollTo(target, true);
+    });
+  }
+
+  /* Divide o nome em palavras, cada uma dentro da sua máscara, e devolve as
+     palavras (o que é animado). O SplitText faz isso e mantém o nome
+     acessível através de um aria-label completo, com espaços reais entre as
+     palavras; sem o plugin, wrapWords cria exatamente a mesma estrutura. */
+  function splitWords(el) {
+    if (typeof window.SplitText !== 'undefined') {
+      return window.SplitText.create(el, {
+        type: 'words',
+        mask: 'words',
+        wordsClass: 'word',
+        tag: 'span'
+      }).words;
+    }
+
+    return wrapWords(el);
+  }
+
+  /* Mesma estrutura de classes que o SplitText: `.word-mask` (máscara) com a
+     palavra em `.word`. Os espaços ficam no texto, por isso leitores de ecrã
+     e copiar/colar não mudam. */
   function wrapWords(el) {
     var words = el.textContent.trim().split(/\s+/);
     var inners = [];
@@ -31,10 +112,10 @@
 
     words.forEach(function (word, index) {
       var mask = document.createElement('span');
-      mask.className = 'word';
+      mask.className = 'word-mask';
 
       var inner = document.createElement('span');
-      inner.className = 'word__i';
+      inner.className = 'word';
       inner.textContent = word;
 
       mask.appendChild(inner);
@@ -54,7 +135,7 @@
     var rule = hero.querySelector('.hero__rule');
     var metaItems = hero.querySelectorAll('.hero__meta > *');
     var nameEl = hero.querySelector('[data-split-words]');
-    var words = nameEl ? wrapWords(nameEl) : [];
+    var words = nameEl ? splitWords(nameEl) : [];
     var foot = hero.querySelectorAll('.hero__foot > *');
     var dot = hero.querySelector('.dot');
 
@@ -86,6 +167,7 @@
      scroll/resize garante que nenhum bloco fica escondido, mesmo se o
      observer perder um (scroll muito rápido, rAF estrangulado). */
   function scrollReveals() {
+    var revealTargets = document.querySelectorAll('[data-reveal]');
     if (!revealTargets.length) return;
 
     var pending = Array.prototype.slice.call(revealTargets);

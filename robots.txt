@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Atualize se o site não ficar em https://anilp07x.github.io/prtfolio/
+Sitemap: https://anilp07x.github.io/prtfolio/sitemap.xml

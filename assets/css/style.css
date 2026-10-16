@@ -1,0 +1,336 @@
+/* Portfólio minimalista — papel e tinta, hairlines, tipografia do sistema.
+   O GSAP só faz animações suaves de entrada (ver assets/js/main.js). */
+
+:root {
+  color-scheme: light dark;
+
+  --paper: #f6f6f3;
+  --ink: #17171a;
+  --muted: #66665f;
+  --line: rgba(23, 23, 26, .14);
+  --signal: #2e7d52;
+  --on-inverse-soft: rgba(246, 246, 243, .72);
+
+  --bg: var(--paper);
+  --fg: var(--ink);
+
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --wrap: 58rem;
+  --pad: clamp(1.25rem, 5vw, 4rem);
+  --hair: 1px solid var(--line);
+  --ease: cubic-bezier(.2, .6, .2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #101012;
+    --ink: #ececea;
+    --muted: #a3a39c;
+    --line: rgba(236, 236, 234, .16);
+    --signal: #4cc07d;
+    --on-inverse-soft: rgba(16, 16, 18, .72);
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--sans);
+  font-size: clamp(1rem, .96rem + .18vw, 1.06rem);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+.wrap {
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+::selection { background: var(--fg); color: var(--bg); }
+
+/* ---------- cabeçalho ---------- */
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem 1.5rem;
+  padding-block: 1.6rem;
+}
+
+.top__name,
+.top__nav {
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.top__name { text-decoration: none; }
+
+.top__nav { display: flex; gap: 1.1rem; }
+
+.top__nav a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .18s var(--ease);
+}
+
+.top__nav a:hover { color: var(--fg); }
+
+/* ---------- herói ---------- */
+
+.hero { padding-block: clamp(3.5rem, 13vh, 8rem) clamp(2.5rem, 8vh, 5rem); }
+
+.label {
+  margin: 0 0 1.1rem;
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 9vw, 5rem);
+  line-height: .98;
+  letter-spacing: -.035em;
+  font-weight: 800;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 1.4rem 0 0;
+  max-width: 44ch;
+  font-size: clamp(1.05rem, 1rem + .5vw, 1.3rem);
+  color: var(--muted);
+}
+
+.status {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  margin: 1.4rem 0 0;
+  font-family: var(--mono);
+  font-size: .76rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+}
+
+.dot {
+  width: .5rem;
+  height: .5rem;
+  border-radius: 50%;
+  background: var(--signal);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal) 18%, transparent);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  margin: 1.9rem 0 0;
+}
+
+.btn {
+  display: inline-block;
+  padding: .68rem 1.15rem;
+  border: 1px solid var(--fg);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--fg);
+  transition: background-color .18s var(--ease), color .18s var(--ease);
+}
+
+.btn:hover { background: var(--fg); color: var(--bg); }
+
+.btn--ink { background: var(--fg); color: var(--bg); }
+
+.btn--ink:hover { background: transparent; color: var(--fg); }
+
+/* ---------- secções ---------- */
+
+.section {
+  padding-block: clamp(2.75rem, 9vh, 5rem);
+  border-top: var(--hair);
+}
+
+h2 {
+  margin: 0 0 1.75rem;
+  font-size: clamp(1.25rem, 1rem + 1.1vw, 1.75rem);
+  letter-spacing: -.02em;
+  font-weight: 700;
+}
+
+/* ---------- listas (projetos e contactos) ---------- */
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: var(--hair);
+}
+
+.list > li { border-bottom: var(--hair); }
+
+.row {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) auto 1.25rem;
+  grid-template-areas: "num body meta arrow";
+  gap: .35rem 1.25rem;
+  align-items: baseline;
+  padding: 1.05rem .6rem;
+  color: inherit;
+  text-decoration: none;
+  transition: background-color .18s var(--ease), color .18s var(--ease);
+}
+
+.row__num {
+  grid-area: num;
+  font-family: var(--mono);
+  font-size: .74rem;
+  color: var(--muted);
+}
+
+.row__body { grid-area: body; min-width: 0; }
+
+.row__title { display: block; font-weight: 600; letter-spacing: -.01em; }
+
+.row__desc { display: block; font-size: .95rem; color: var(--muted); }
+
+.row__meta {
+  grid-area: meta;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.row__arrow {
+  grid-area: arrow;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+/* Inversão no hover: é aqui que o portfólio ganha carácter. */
+@media (hover: hover) and (pointer: fine) {
+  .row:hover {
+    background: var(--fg);
+    color: var(--bg);
+    --muted: var(--on-inverse-soft);
+  }
+}
+
+.row:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+  --muted: var(--on-inverse-soft);
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .row {
+    grid-template-columns: 2rem minmax(0, 1fr) 1.25rem;
+    grid-template-areas:
+      "num body arrow"
+      ". meta meta";
+  }
+
+  .row__meta { margin-top: .15rem; }
+}
+
+/* ---------- stack ---------- */
+
+.stack { margin: 0; border-top: var(--hair); }
+
+.stack > div {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: .3rem 1.5rem;
+  padding: .95rem .6rem;
+  border-bottom: var(--hair);
+}
+
+.stack dt {
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.stack dd { margin: 0; }
+
+@media (max-width: 560px) {
+  .stack > div { grid-template-columns: 1fr; }
+}
+
+/* ---------- rodapé ---------- */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .4rem 1.5rem;
+  border-top: var(--hair);
+  padding-block: 1.8rem 2.5rem;
+  font-family: var(--mono);
+  font-size: .72rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.foot p { margin: 0; }
+
+/* ---------- acessibilidade ---------- */
+
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+}
+
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: .5rem .8rem;
+  background: var(--bg);
+  border: 1px solid var(--fg);
+  border-radius: 2px;
+  font-family: var(--mono);
+  font-size: .78rem;
+  text-decoration: none;
+}
+
+:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

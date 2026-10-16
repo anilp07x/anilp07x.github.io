@@ -7,11 +7,6 @@
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
-  /* O relógio não é animação: funciona mesmo com movimento reduzido ou sem
-     GSAP. Sem JavaScript fica o fuso fixo escrito no HTML — nunca uma hora
-     errada. */
-  luandaClock();
-
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gsapReady = typeof window.gsap !== 'undefined';
   var canObserve = 'IntersectionObserver' in window;
@@ -132,26 +127,6 @@
     return inners;
   }
 
-  /* Ficha técnica do herói: hora de Luanda (WAT, UTC+1, sem hora de verão).
-     Acrescenta a hora ao texto do HTML, que já traz o fuso fixo. */
-  function luandaClock() {
-    var el = document.querySelector('[data-clock]');
-    if (!el || typeof Intl === 'undefined' || !Intl.DateTimeFormat) return;
-
-    var format;
-    try {
-      format = new Intl.DateTimeFormat('pt-PT', {
-        timeZone: 'Africa/Luanda', hour: '2-digit', minute: '2-digit', hour12: false
-      });
-    } catch (err) {
-      return; /* ambiente sem base de fusos: mantém-se o texto do HTML */
-    }
-
-    var show = function () { el.textContent = format.format(new Date()) + ' · WAT'; };
-    show();
-    setInterval(show, 30000);
-  }
-
   /* Campo generativo do herói: uma grelha de pontos em canvas que abre um
      vazio com a forma do nome (é nele que o nome parece resolver-se), respira
      devagar e foge do cursor. Puramente decorativo: fica atrás do texto, não
@@ -245,31 +220,19 @@
       var ox = (box.w - (cols - 1) * SPACING) / 2;
       var oy = (box.h - (rows - 1) * SPACING) / 2;
 
-      /* O campo vive numa faixa à volta do nome e desvanece até aos limites da
-         ficha técnica e do rodapé: o texto pequeno fica sempre sobre papel
-         limpo. Os limites são medidos, não adivinhados. */
-      var gap = 54;
-      var heroTop = 0;
-      var h1 = document.getElementById('nome');
-      if (h1) {
-        var active = h1.getBoundingClientRect();
-        var metaEl = hero.querySelector('.hero__meta');
-        var footEl = hero.querySelector('.hero__foot');
-        heroTop = r.top;
+      /* O campo enche o herói e desvanece nas bordas: no topo, para não bater
+         no limite, e antes do rodapé, para o texto pequeno ficar sobre papel
+         limpo. O vazio do nome vem das próprias letras, não destes limites. */
+      var footEl = hero.querySelector('.hero__foot');
+      var ceiling = (footEl ? footEl.getBoundingClientRect().top - r.top : box.h) - 8;
+      var edge = Math.max(20, Math.round(box.h * .07));
 
-        var nameTop = active.top - heroTop;
-        var nameBottom = active.bottom - heroTop;
-        var floor = (metaEl ? metaEl.getBoundingClientRect().bottom - heroTop : 0) + 6;
-        var ceiling = (footEl ? footEl.getBoundingClientRect().top - heroTop : box.h) - 8;
-
-        band.floor = floor;
-        band.ceil = ceiling;
-        band.t = Math.max(nameTop - gap, floor);
-        band.b = Math.min(nameBottom + gap, ceiling);
-        if (band.b < band.t) band.b = band.t;
-        band.topFade = Math.max(1, band.t - floor);
-        band.botFade = Math.max(1, ceiling - band.b);
-      }
+      band.floor = 0;
+      band.ceil = ceiling;
+      band.t = edge;
+      band.b = Math.max(edge, ceiling - Math.max(36, Math.round(box.h * .14)));
+      band.topFade = edge;
+      band.botFade = Math.max(1, ceiling - band.b);
 
       dots = [];
       for (var j = 0; j < rows; j++) {
@@ -391,38 +354,30 @@
     };
   }
 
-  /* Entrada do herói: régua a ser desenhada, meta, nome palavra a palavra, base. */
+  /* Entrada do herói: régua a ser desenhada, nome palavra a palavra, base. */
   function heroIntro() {
     var hero = document.querySelector('[data-hero]');
     if (!hero) return;
 
     var rule = hero.querySelector('.hero__rule');
-    var metaItems = hero.querySelectorAll('.hero__meta > *');
     var nameEl = hero.querySelector('[data-split-words]');
     var words = nameEl ? splitWords(nameEl) : [];
     /* O campo mede as palavras já divididas, por isso vem depois do SplitText
        e antes da linha de tempo (que desloca as palavras da posição medida). */
     var field = heroField();
     var foot = hero.querySelectorAll('.hero__foot > *');
-    var dot = hero.querySelector('.dot');
 
     var tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
     if (rule) tl.from(rule, { scaleX: 0, duration: .9, ease: 'power2.inOut' });
 
-    if (metaItems.length) {
-      tl.from(metaItems, { y: 12, autoAlpha: 0, duration: .5, stagger: .07 }, rule ? '-=.6' : 0);
-    }
-
     if (words.length) {
-      tl.from(words, { yPercent: 110, duration: .95, stagger: .075, ease: 'power4.out' }, '-=.35');
+      tl.from(words, { yPercent: 110, duration: .95, stagger: .075, ease: 'power4.out' }, rule ? '-=.35' : 0);
     }
 
     if (foot.length) {
       tl.from(foot, { y: 20, autoAlpha: 0, duration: .6, stagger: .1 }, '-=.55');
     }
-
-    if (dot) tl.from(dot, { scale: 0, duration: .5, ease: 'back.out(2)' }, '-=.6');
 
     /* O campo monta-se ao mesmo tempo que o nome entra. */
     if (field) tl.to(field.state, { assemble: 1, duration: 1.3, ease: 'power2.out' }, .1);

@@ -1,5 +1,5 @@
-/* Portfólio minimalista — papel e tinta, hairlines, tipografia do sistema.
-   O GSAP só faz animações suaves de entrada (ver assets/js/main.js). */
+/* Portfólio — papel e tinta, hairlines, tipografia do sistema. O GSAP anima a
+   entrada e o scroll; o herói tem um campo de pontos em canvas (ver main.js). */
 
 :root {
   color-scheme: light dark;
@@ -8,7 +8,6 @@
   --ink: #17171a;
   --muted: #66665f;
   --line: rgba(23, 23, 26, .14);
-  --signal: #2e7d52;
   --on-inverse-soft: rgba(246, 246, 243, .72);
 
   --bg: var(--paper);
@@ -29,7 +28,6 @@
     --ink: #ececea;
     --muted: #a3a39c;
     --line: rgba(236, 236, 234, .16);
-    --signal: #4cc07d;
     --on-inverse-soft: rgba(16, 16, 18, .72);
   }
 }
@@ -126,57 +124,10 @@ body {
 
 /* O conteúdo sobe acima do campo (é posicionado, para vencer a camada do
    canvas). A régua já é posicionada e vem depois no DOM, logo fica acima. */
-.hero__meta,
 #nome,
 .hero__foot {
   position: relative;
   z-index: 1;
-}
-
-/* Ficha técnica: cada célula é um par rótulo/valor sobre uma hairline, para
-   se ler como uma folha de especificações. As colunas ajustam-se sozinhas. */
-.hero__meta {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
-  gap: 1.1rem 2.5rem;
-  margin: 0;
-  font-family: var(--mono);
-  text-transform: uppercase;
-}
-
-.cell {
-  display: grid;
-  gap: .4rem;
-  align-content: start;
-  border-top: 1px solid var(--line);
-  padding-top: .6rem;
-}
-
-.cell__k {
-  font-size: .62rem;
-  letter-spacing: .2em;
-  color: var(--muted);
-}
-
-.cell__v {
-  margin: 0;
-  font-size: .74rem;
-  letter-spacing: .08em;
-  color: var(--fg);
-}
-
-.status {
-  display: inline-flex;
-  align-items: center;
-  gap: .55rem;
-}
-
-.dot {
-  width: .5rem;
-  height: .5rem;
-  border-radius: 50%;
-  background: var(--signal);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--signal) 18%, transparent);
 }
 
 h1 {

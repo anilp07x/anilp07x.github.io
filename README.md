@@ -51,7 +51,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 ├── README.md
 └── assets
     ├── css/style.css   tema claro/escuro automático, hairlines, tipografia do sistema
-    ├── js/main.js      animações de entrada, scroll suavizado e âncoras internas
+    ├── js/main.js      animações de entrada, campo generativo do herói, scroll suavizado e âncoras
     └── vendor/          GSAP 3.13.0: núcleo + ScrollTrigger, ScrollSmoother, SplitText
 ```
 
@@ -79,15 +79,11 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   caso o plugin não carregue; o `<h1>` conserva o `aria-label` completo e as
   palavras ficam decorativas para leitores de ecrã.
 - **Campo generativo do herói**: uma grelha de pontos desenhada em `<canvas>`
-  atrás do texto. Onde o nome está, os pontos abrem um vazio — o nome resolve-se
-  no campo — e a faixa desvanece antes de chegar à ficha técnica e ao rodapé,
-  para o texto pequeno ficar sempre sobre papel limpo. Os pontos afastam-se e
+  atrás do texto, que enche o herói e desvanece nas bordas — no topo e antes do
+  rodapé, para o texto pequeno ficar sempre sobre papel limpo. Onde o nome está,
+  os pontos abrem um vazio: o nome resolve-se no campo. Os pontos afastam-se e
   ganham tinta perto do cursor. É decoração: `aria-hidden`, não recebe cliques e
   fica vazio sem JavaScript, com movimento reduzido ou sem GSAP.
-- **Ficha técnica** do herói: quatro pares rótulo/valor (função, base, fuso e
-  estado). O fuso mostra a hora de Luanda ao vivo, calculada por
-  `Intl.DateTimeFormat` com `Africa/Luanda`; sem JavaScript fica o fuso fixo
-  escrito no HTML, para nunca aparecer uma hora errada.
 - **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações
   e o scroll suavizado, ficando o scroll e o texto nativos.
 - Os blocos aparecem quando entram no ecrã (IntersectionObserver), com um

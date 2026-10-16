@@ -59,7 +59,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 
 | O quê | Onde |
 |---|---|
-| Projetos | `index.html`, secção `#projetos` (cada `<li>` é um link para o repositório) |
+| Projetos | `index.html`, secção `#projetos` (cada `<li>` liga ao repositório ou ao site em produção) |
 | Stack | `index.html`, secção `#stack` |
 | Contactos | `index.html`, secção `#contacto` |
 | Cores | `assets/css/style.css`, bloco `:root` |
@@ -67,8 +67,13 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 ## Notas
 
 - **Sem JavaScript** o conteúdo continua todo legível: as animações só escondem
-  elementos depois de o GSAP carregar.
+  elementos depois de o GSAP carregar. O nome no herói é dividido em palavras
+  para a animação; sem JavaScript fica texto simples (o texto lido por leitores
+  de ecrã e copiado é sempre o mesmo).
 - **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações.
+- Os blocos aparecem quando entram no ecrã (IntersectionObserver), com um
+  varrimento a cada scroll como rede de segurança: nenhum bloco pode ficar
+  escondido se o observer falhar.
 - O ano no rodapé é atualizado automaticamente por `assets/js/main.js`.
 - Pré-visualização local: basta abrir `index.html` no navegador
   (não há módulos nem pedidos de rede para além dos ficheiros locais).

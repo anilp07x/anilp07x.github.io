@@ -7,6 +7,11 @@
   var year = document.getElementById('year');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  /* O relógio não é animação: funciona mesmo com movimento reduzido ou sem
+     GSAP. Sem JavaScript fica o fuso fixo escrito no HTML — nunca uma hora
+     errada. */
+  luandaClock();
+
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gsapReady = typeof window.gsap !== 'undefined';
   var canObserve = 'IntersectionObserver' in window;
@@ -127,6 +132,265 @@
     return inners;
   }
 
+  /* Ficha técnica do herói: hora de Luanda (WAT, UTC+1, sem hora de verão).
+     Acrescenta a hora ao texto do HTML, que já traz o fuso fixo. */
+  function luandaClock() {
+    var el = document.querySelector('[data-clock]');
+    if (!el || typeof Intl === 'undefined' || !Intl.DateTimeFormat) return;
+
+    var format;
+    try {
+      format = new Intl.DateTimeFormat('pt-PT', {
+        timeZone: 'Africa/Luanda', hour: '2-digit', minute: '2-digit', hour12: false
+      });
+    } catch (err) {
+      return; /* ambiente sem base de fusos: mantém-se o texto do HTML */
+    }
+
+    var show = function () { el.textContent = format.format(new Date()) + ' · WAT'; };
+    show();
+    setInterval(show, 30000);
+  }
+
+  /* Campo generativo do herói: uma grelha de pontos em canvas que abre um
+     vazio com a forma do nome (é nele que o nome parece resolver-se), respira
+     devagar e foge do cursor. Puramente decorativo: fica atrás do texto, não
+     recebe cliques, e só existe com JavaScript, GSAP e movimento normal. */
+  function heroField() {
+    var canvas = document.querySelector('[data-field]');
+    if (!canvas || !canvas.getContext) return null;
+
+    var ctx = canvas.getContext('2d');
+    var hero = canvas.parentNode;
+    if (!ctx || !hero || !hero.getBoundingClientRect) return null;
+
+    var SPACING = 14;
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var state = { assemble: 0 };
+    var dots = [];
+    var box = { w: 0, h: 0, ink: 'rgb(0, 0, 0)' };
+    var band = { t: -1e9, b: 1e9, floor: -1e9, ceil: 1e9, topFade: 80, botFade: 80 };
+    var pointer = { x: 0, y: 0, on: false };
+    var ticking = false;
+
+    function readInk() {
+      box.ink = window.getComputedStyle(document.body).color;
+    }
+
+    /* Rasteriza o nome, com a mesma fonte e à mesma posição, num canvas fora
+       do ecrã: assim sabe-se que pontos caem dentro das letras. */
+    function nameMask() {
+      var h1 = document.getElementById('nome');
+      if (!h1 || !box.w || !box.h) return null;
+
+      var off = document.createElement('canvas');
+      off.width = box.w;
+      off.height = box.h;
+      var octx = off.getContext('2d');
+      if (!octx) return null;
+
+      var cs = window.getComputedStyle(h1);
+      octx.font = cs.fontStyle + ' ' + cs.fontWeight + ' ' + cs.fontSize + ' ' + cs.fontFamily;
+      if ('letterSpacing' in octx) octx.letterSpacing = cs.letterSpacing;
+      octx.textAlign = 'left';
+      octx.textBaseline = 'middle';
+      octx.fillStyle = '#000';
+
+      var origin = hero.getBoundingClientRect();
+      var parts = h1.querySelectorAll('.word');
+      if (!parts.length) parts = [h1];
+      Array.prototype.forEach.call(parts, function (part) {
+        var r = part.getBoundingClientRect();
+        octx.fillText(part.textContent, r.left - origin.left, r.top - origin.top + r.height / 2);
+      });
+
+      try {
+        return octx.getImageData(0, 0, box.w, box.h);
+      } catch (err) {
+        return null; /* sem leitura de pixéis, desenha-se a grelha inteira */
+      }
+    }
+
+    /* Verdadeiro se algum ponto à volta de (x, y) cair dentro das letras. A
+       folga alarga o vazio, para a forma se ler bem à distância da grelha. */
+    function overName(mask, x, y, slack) {
+      if (!mask) return false;
+      var steps = [-1, -.5, 0, .5, 1];
+      for (var i = 0; i < steps.length; i++) {
+        for (var j = 0; j < steps.length; j++) {
+          var px = Math.round(x + steps[i] * slack);
+          var py = Math.round(y + steps[j] * slack);
+          if (px < 0 || py < 0 || px >= mask.width || py >= mask.height) continue;
+          if (mask.data[(py * mask.width + px) * 4 + 3] > 128) return true;
+        }
+      }
+      return false;
+    }
+
+    function build() {
+      var r = hero.getBoundingClientRect();
+      box.w = Math.round(r.width);
+      box.h = Math.round(r.height);
+      if (box.w < 40 || box.h < 40) return;
+
+      canvas.width = box.w * dpr;
+      canvas.height = box.h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      readInk();
+
+      var mask = nameMask();
+      var slack = Math.max(4, SPACING * .85);
+      var cols = Math.ceil(box.w / SPACING) + 1;
+      var rows = Math.ceil(box.h / SPACING) + 1;
+      var ox = (box.w - (cols - 1) * SPACING) / 2;
+      var oy = (box.h - (rows - 1) * SPACING) / 2;
+
+      /* O campo vive numa faixa à volta do nome e desvanece até aos limites da
+         ficha técnica e do rodapé: o texto pequeno fica sempre sobre papel
+         limpo. Os limites são medidos, não adivinhados. */
+      var gap = 54;
+      var heroTop = 0;
+      var h1 = document.getElementById('nome');
+      if (h1) {
+        var active = h1.getBoundingClientRect();
+        var metaEl = hero.querySelector('.hero__meta');
+        var footEl = hero.querySelector('.hero__foot');
+        heroTop = r.top;
+
+        var nameTop = active.top - heroTop;
+        var nameBottom = active.bottom - heroTop;
+        var floor = (metaEl ? metaEl.getBoundingClientRect().bottom - heroTop : 0) + 6;
+        var ceiling = (footEl ? footEl.getBoundingClientRect().top - heroTop : box.h) - 8;
+
+        band.floor = floor;
+        band.ceil = ceiling;
+        band.t = Math.max(nameTop - gap, floor);
+        band.b = Math.min(nameBottom + gap, ceiling);
+        if (band.b < band.t) band.b = band.t;
+        band.topFade = Math.max(1, band.t - floor);
+        band.botFade = Math.max(1, ceiling - band.b);
+      }
+
+      dots = [];
+      for (var j = 0; j < rows; j++) {
+        for (var i = 0; i < cols; i++) {
+          var x = ox + i * SPACING;
+          var y = oy + j * SPACING;
+
+          if (y < band.floor || y > band.ceil) continue;
+
+          var w = 1;
+          if (y < band.t) w = 1 - (band.t - y) / band.topFade;
+          else if (y > band.b) w = 1 - (y - band.b) / band.botFade;
+          w = Math.max(0, Math.min(1, w));
+          w = w * w * (3 - 2 * w);   /* entrada e saída suaves */
+          if (w < .06) continue;
+
+          if (overName(mask, x, y, slack)) continue;
+
+          dots.push({
+            x: x, y: y, w: w,
+            ax: x + (Math.random() - .5) * box.w,
+            ay: y + (Math.random() - .5) * box.h,
+            ph: Math.random() * 6.2832
+          });
+        }
+      }
+      draw(0);
+    }
+
+    function draw(time) {
+      ctx.clearRect(0, 0, box.w, box.h);
+      ctx.fillStyle = box.ink;
+
+      var assembled = state.assemble;
+      var reach = 120;
+      var reach2 = reach * reach;
+
+      for (var i = 0; i < dots.length; i++) {
+        var d = dots[i];
+        var x = d.ax + (d.x - d.ax) * assembled;
+        var y = d.ay + (d.y - d.ay) * assembled;
+        y += Math.sin(time * .0009 + d.ph) * 1.6;
+
+        var alpha = .32 * d.w;
+        var size = 1.9;
+
+        if (pointer.on) {
+          var dx = x - pointer.x;
+          var dy = y - pointer.y;
+          var dist2 = dx * dx + dy * dy;
+          if (dist2 < reach2) {
+            var force = (reach2 - dist2) / reach2;   /* 1 no cursor, 0 no limite */
+            var dist = Math.sqrt(dist2) || 1;
+            x += (dx / dist) * force * 16;
+            y += (dy / dist) * force * 16;
+            alpha = .32 * d.w + force * .58 * d.w;
+            size = 1.9 + force * 1.6;
+          }
+        }
+
+        ctx.globalAlpha = alpha;
+        ctx.fillRect(x - size / 2, y - size / 2, size, size);
+      }
+      ctx.globalAlpha = 1;
+    }
+
+    function tick(time) { draw(time); }
+
+    function play() {
+      if (ticking) return;
+      gsap.ticker.add(tick);
+      ticking = true;
+    }
+
+    function stop() {
+      if (!ticking) return;
+      gsap.ticker.remove(tick);
+      ticking = false;
+    }
+
+    hero.addEventListener('pointermove', function (e) {
+      var r = canvas.getBoundingClientRect();
+      pointer.x = e.clientX - r.left;
+      pointer.y = e.clientY - r.top;
+      pointer.on = true;
+    });
+    hero.addEventListener('pointerleave', function () { pointer.on = false; });
+
+    /* Só se desenha enquanto o herói está à vista: nada de gastar ciclos fora. */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) play(); else stop();
+      }, { rootMargin: '120px' }).observe(hero);
+    } else {
+      play();
+    }
+
+    var pending = null;
+    window.addEventListener('resize', function () {
+      clearTimeout(pending);
+      pending = setTimeout(function () { build(); play(); }, 180);
+    });
+
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener) {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+        readInk();
+        draw(0);
+      });
+    }
+
+    build();
+    play();
+
+    return {
+      state: state,
+      /* Um fotograma garantido com a grelha já montada, para o caso de o
+         rAF estar estrangulado (aba em segundo plano). */
+      settle: function () { draw(performance.now ? performance.now() : Date.now()); }
+    };
+  }
+
   /* Entrada do herói: régua a ser desenhada, meta, nome palavra a palavra, base. */
   function heroIntro() {
     var hero = document.querySelector('[data-hero]');
@@ -136,6 +400,9 @@
     var metaItems = hero.querySelectorAll('.hero__meta > *');
     var nameEl = hero.querySelector('[data-split-words]');
     var words = nameEl ? splitWords(nameEl) : [];
+    /* O campo mede as palavras já divididas, por isso vem depois do SplitText
+       e antes da linha de tempo (que desloca as palavras da posição medida). */
+    var field = heroField();
     var foot = hero.querySelectorAll('.hero__foot > *');
     var dot = hero.querySelector('.dot');
 
@@ -157,9 +424,15 @@
 
     if (dot) tl.from(dot, { scale: 0, duration: .5, ease: 'back.out(2)' }, '-=.6');
 
+    /* O campo monta-se ao mesmo tempo que o nome entra. */
+    if (field) tl.to(field.state, { assemble: 1, duration: 1.3, ease: 'power2.out' }, .1);
+
     /* Rede de segurança: se o rAF estiver estrangulado (aba em segundo plano,
        por exemplo), o nome nunca pode ficar escondido atrás da máscara. */
-    setTimeout(function () { if (tl.progress() < 1) tl.progress(1); }, 3600);
+    setTimeout(function () {
+      if (tl.progress() < 1) tl.progress(1);
+      if (field) field.settle();
+    }, 3600);
   }
 
   /* Blocos que aparecem à medida que entram no ecrã.

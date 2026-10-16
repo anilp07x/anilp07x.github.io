@@ -57,12 +57,29 @@
 
         <main>
           <section class="hero" aria-labelledby="nome" data-hero>
+            <!-- Campo generativo desenhado em canvas atrás do texto: a grelha
+                 de pontos abre um vazio com a forma do nome. É decoração — sem
+                 JavaScript fica vazio e não se perde informação nenhuma. -->
+            <canvas class="hero__field" data-field aria-hidden="true"></canvas>
             <span class="hero__rule" aria-hidden="true"></span>
-            <p class="hero__meta">
-              <span>Full-stack Developer</span>
-              <span>Luanda, Angola · 8°50′S 13°14′E</span>
-              <span class="status"><span class="dot" aria-hidden="true"></span>Disponível para projetos remotos</span>
-            </p>
+            <dl class="hero__meta">
+              <div class="cell">
+                <dt class="cell__k">Função</dt>
+                <dd class="cell__v">Full-stack Developer</dd>
+              </div>
+              <div class="cell">
+                <dt class="cell__k">Base</dt>
+                <dd class="cell__v">Luanda, Angola · 8°50′S 13°14′E</dd>
+              </div>
+              <div class="cell">
+                <dt class="cell__k">Fuso</dt>
+                <dd class="cell__v" data-clock>WAT · UTC+1</dd>
+              </div>
+              <div class="cell">
+                <dt class="cell__k">Estado</dt>
+                <dd class="cell__v status"><span class="dot" aria-hidden="true"></span>Disponível para projetos remotos</dd>
+              </div>
+            </dl>
             <h1 id="nome" data-split-words>Anilson Da Silva Pedro</h1>
             <div class="hero__foot">
               <p class="lead">Construo aplicações web de ponta a ponta — do frontend em React às APIs em Node e Laravel.</p>

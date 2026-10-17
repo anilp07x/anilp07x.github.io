@@ -61,6 +61,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 |---|---|
 | Projetos | `index.html`, secção `#projetos` (cada `<li>` liga ao repositório ou ao site em produção) |
 | Stack | `index.html`, secção `#stack` |
+| Stack de cada projeto | `index.html`, `#projetos`, dentro de `<span class="row__meta row__meta--icons">` |
+| Desenho dos ícones | `assets/css/style.css`, regras `.icon--*` (SVG do simple-icons em data URI) |
 | Contactos | `index.html`, secção `#contacto` |
 | Cores | `assets/css/style.css`, bloco `:root` |
 
@@ -84,6 +86,15 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   os pontos abrem um vazio: o nome resolve-se no campo. Os pontos afastam-se e
   ganham tinta perto do cursor. É decoração: `aria-hidden`, não recebe cliques e
   fica vazio sem JavaScript, com movimento reduzido ou sem GSAP.
+- **Ícones das stacks** (secção Stack e linhas de projeto): cada tecnologia é um
+  `<span class="icon icon--nome">` com o nome acessível em `aria-label`. O
+  desenho vem de uma máscara CSS com o SVG embutido em *data URI* — um `url()`
+  para um ficheiro `.svg` externo não carrega a partir de `file://`. Herdam a cor
+  do texto por `currentColor`, logo servem os dois temas sem filtros. Ao passar o
+  rato aparece um pequeno popover com o nome (só em dispositivos com rato; no
+  toque o `aria-label` continua a chegar aos leitores de ecrã). Os desenhos são do
+  [simple-icons](https://simpleicons.org/); o C# usa o logo do .NET (o simple-icons
+  já não traz C#) e o Guzzle, por não ter logotipo, fica como texto.
 - **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações
   e o scroll suavizado, ficando o scroll e o texto nativos.
 - Os blocos aparecem quando entram no ecrã (IntersectionObserver), com um

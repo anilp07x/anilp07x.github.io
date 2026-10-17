@@ -95,8 +95,8 @@ body {
 .hero {
   position: relative;
   display: grid;
-  align-content: space-between;
-  gap: clamp(2rem, 6vh, 3.5rem);
+  align-content: center;
+  gap: clamp(1.4rem, 3.5vh, 2.2rem);
   min-height: min(76vh, 42rem);
   padding-block: clamp(2.5rem, 8vh, 4.5rem) clamp(2rem, 5vh, 3.5rem);
   text-align: center;
@@ -133,7 +133,7 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(2.6rem, 8.5vw, 6.75rem);
+  font-size: clamp(2.2rem, 6.5vw, 5rem);
   line-height: .98;
   letter-spacing: -.04em;
   font-weight: 800;

@@ -69,7 +69,6 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 | Marca (cabeçalho) | `logo.png`; o `favicon.png` é derivado dele |
 | Cartão de partilha | `og.png` (1200×630), também feito a partir de `logo.png` |
 | Contactos | `index.html`, secção `#contacto` |
-| Data da última atualização | `index.html`, rodapé `.foot` (e `lastmod` em `sitemap.xml`) |
 | Cores | `assets/css/style.css`, bloco `:root` |
 
 ## Notas
@@ -128,10 +127,9 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   seta no canto. Cada bloco é um link, por isso mantém a inversão do hover e o
   popover do ícone; em ecrã estreito empilham (duas colunas deixariam um buraco,
   com três canais).
-- **Rodapé**: o mesmo logo do cabeçalho (invertido no tema escuro, como lá), a
-  identificação, a data da última atualização e um regresso ao topo. A data fica
-  no HTML — quem mexer no conteúdo atualiza-a à mão (e a `lastmod` do
-  `sitemap.xml`).
+- **Rodapé**: só a marca — o mesmo logo do cabeçalho (invertido no tema escuro,
+  tinta na impressão), com o nome no `alt`, já que não há texto ao lado — o ano
+  (atualizado por JavaScript) e um regresso ao topo.
 - **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
   (Engenharia Informática) e formações, com os dados do CV — cada tema
   no seu bloco. As formações levam o logotipo de cada entidade (DataCamp, IBM,

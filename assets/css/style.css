@@ -713,6 +713,7 @@ h2 {
 .foot {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
   gap: .5rem 1.5rem;
   border-top: var(--hair);
@@ -726,16 +727,11 @@ h2 {
 
 .foot p { margin: 0; }
 
-.foot__id {
-  display: flex;
-  align-items: center;
-  gap: .55rem;
-}
+/* Só o logo: o nome vai no alt, para continuar a existir para quem não vê a
+   imagem. */
+.foot__mark { display: block; width: auto; height: 1.4rem; }
 
-.foot__mark { display: block; width: auto; height: 1.15rem; }
-
-/* Data e regresso ao topo à direita; em ecrã estreito quebram sob a
-   identificação, que fica com a linha toda. */
+/* Ano e regresso ao topo à direita. */
 .foot__end {
   display: flex;
   flex-wrap: wrap;

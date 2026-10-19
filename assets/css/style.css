@@ -70,17 +70,24 @@ body {
   padding-block: 1.6rem;
 }
 
-.top__name,
 .top__nav {
+  display: flex;
+  gap: 1.1rem;
   font-family: var(--mono);
   font-size: .74rem;
   letter-spacing: .14em;
   text-transform: uppercase;
 }
 
-.top__name { text-decoration: none; }
+/* O nome é o logo (imagem), não texto. */
+.top__name { display: inline-flex; }
 
-.top__nav { display: flex; gap: 1.1rem; }
+.top__name img { display: block; width: auto; height: 1.6rem; }
+
+/* O logo é tinta escura: no tema escuro inverte, senão sumia no papel escuro. */
+@media (prefers-color-scheme: dark) {
+  .top__name img { filter: invert(1); }
+}
 
 .top__nav a {
   color: var(--muted);

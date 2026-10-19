@@ -44,7 +44,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 ```
 .
 ├── index.html          conteúdo real (funciona mesmo sem JavaScript)
-├── favicon.svg
+├── logo.png            marca do cabeçalho
+├── favicon.png         marca num quadrado de papel, gerada a partir de logo.png
 ├── .nojekyll           impede o Jekyll de processar o site
 ├── robots.txt
 ├── sitemap.xml
@@ -63,6 +64,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 | Stack | `index.html`, secção `#stack` |
 | Stack de cada projeto | `index.html`, `#projetos`, dentro de `<span class="row__meta row__meta--icons">` |
 | Desenho dos ícones | `assets/css/style.css`, regras `.icon--*` (SVG do simple-icons em data URI) |
+| Marca (cabeçalho) | `logo.png`; o `favicon.png` é derivado dele |
 | Contactos | `index.html`, secção `#contacto` |
 | Cores | `assets/css/style.css`, bloco `:root` |
 
@@ -72,6 +74,13 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   elementos depois de o GSAP carregar. O nome no herói é dividido em palavras
   para a animação; sem JavaScript fica texto simples (o texto lido por leitores
   de ecrã e copiado é sempre o mesmo).
+- **Marca**: no cabeçalho, o nome é o `logo.png` — a imagem tem `alt` com o nome
+  completo, por isso continua legível por leitores de ecrã e quando a imagem não
+  carrega. No tema escuro o logo é invertido (`filter: invert(1)`), senão a tinta
+  escura desaparecia no papel escuro. O `favicon.png` é o mesmo logo dentro de um
+  quadrado de papel arredondado — a um favicon transparente de tinta escura
+  aconteceria o mesmo numa barra de separadores escura. Para o regerar, desenhe
+  o `logo.png` centrado num quadrado de papel de 192×192 (cantos redondos).
 - **Scroll suavizado** (ScrollSmoother): o conteúdo é deslocado por *transform*
   dentro de um wrapper fixo, mas a barra de scroll e a altura do documento
   continuam nativas. Em ecrãs táteis mantém-se o scroll nativo. Os links

@@ -460,8 +460,14 @@ h2 {
 /* Linhas que não são links (percurso): mesma grelha, sem convite ao clique. */
 .row--plain { cursor: default; }
 
-/* A lista e a tabela encostam uma à outra: uma só régua entre elas. */
-.list + .stack { border-top: 0; }
+/* Texto corrido do percurso (formações, idiomas): mesma medida e tom das
+   descrições das linhas. */
+.percurso__note {
+  margin: 0;
+  max-width: 72ch;
+  font-size: .95rem;
+  color: var(--muted);
+}
 
 /* ---------- stack ---------- */
 

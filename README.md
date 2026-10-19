@@ -123,7 +123,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   "Online" que acompanha a inversão da linha; o fim da página fecha com
   "Vamos conversar" e um único botão de WhatsApp.
 - **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
-  (Engenharia Informática), formações e línguas, com os dados do CV. As entradas
+  (Engenharia Informática), formações e línguas, com os dados do CV — cada tema
+  no seu bloco. As entradas
   são `div`, não `a`, por isso reaproveitam a grelha das listas mas ficam de fora
   da inversão do hover — só o que é clicável se comporta como link.
 - **Impressão e PDF**: o bloco `@media print` desmonta o wrapper do

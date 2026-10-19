@@ -333,67 +333,42 @@
 
           <section class="section" id="contacto" aria-labelledby="contacto-h">
             <h2 id="contacto-h">Contacto</h2>
-            <ul class="list">
-              <li data-reveal>
-                <a class="row" href="mailto:anilpedro07@outlook.com">
-                  <span class="row__num"><span class="icon icon--outlook" data-tip="E-mail" aria-hidden="true"></span></span>
-                  <span class="row__body">
-                    <span class="row__title">anilpedro07@outlook.com</span>
-                    <span class="row__desc">E-mail</span>
-                  </span>
-                  <span class="row__meta">Resposta rápida</span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.04">
-                <a class="row" href="https://wa.me/244924237761" target="_blank" rel="noopener">
-                  <span class="row__num"><span class="icon icon--whatsapp" data-tip="WhatsApp" aria-hidden="true"></span></span>
-                  <span class="row__body">
-                    <span class="row__title">+244 924 237 761</span>
-                    <span class="row__desc">WhatsApp</span>
-                  </span>
-                  <span class="row__meta">Angola</span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.08">
-                <a class="row" href="https://www.linkedin.com/in/anilson-pedro" target="_blank" rel="noopener">
-                  <span class="row__num"><span class="icon icon--linkedin" data-tip="LinkedIn" aria-hidden="true"></span></span>
-                  <span class="row__body">
-                    <span class="row__title">anilson-pedro</span>
-                    <span class="row__desc">LinkedIn</span>
-                  </span>
-                  <span class="row__meta">Perfil profissional</span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.12">
-                <a class="row" href="https://github.com/anilp07x" target="_blank" rel="noopener">
-                  <span class="row__num"><span class="icon icon--github" data-tip="GitHub" aria-hidden="true"></span></span>
-                  <span class="row__body">
-                    <span class="row__title">@anilp07x</span>
-                    <span class="row__desc">GitHub</span>
-                  </span>
-                  <span class="row__meta">Código</span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-
-          <!-- Fecho da página: o herói convida, o fim também. -->
-          <section class="section section--cta" id="falar" aria-labelledby="falar-h" data-reveal>
-            <h2 id="falar-h">Vamos conversar</h2>
-            <p class="cta__lead">Tens um projeto ou uma ideia? Escreve-me.</p>
-            <p class="actions">
-              <a class="btn btn--ink" href="https://wa.me/244924237761?text=Ol%C3%A1%20Anilson%2C%20vi%20o%20seu%20portf%C3%B3lio." target="_blank" rel="noopener">Falar no WhatsApp</a>
-            </p>
+            <!-- Três canais, um por coluna (em ecrã estreito ficam empilhados).
+                 Cada bloco é um link, por isso mantém a inversão e o popover
+                 do ícone das listas. -->
+            <div class="contacts">
+              <a class="contact" href="mailto:anilpedro07@outlook.com" data-reveal>
+                <span class="icon icon--outlook" data-tip="E-mail" aria-hidden="true"></span>
+                <span class="contact__title">anilpedro07@outlook.com</span>
+                <span class="contact__desc">E-mail</span>
+                <span class="contact__arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="contact" href="https://wa.me/244924237761" target="_blank" rel="noopener" data-reveal data-delay="0.06">
+                <span class="icon icon--whatsapp" data-tip="WhatsApp" aria-hidden="true"></span>
+                <span class="contact__title">+244 924 237 761</span>
+                <span class="contact__desc">WhatsApp</span>
+                <span class="contact__arrow" aria-hidden="true">↗</span>
+              </a>
+              <a class="contact" href="https://github.com/anilp07x" target="_blank" rel="noopener" data-reveal data-delay="0.12">
+                <span class="icon icon--github" data-tip="GitHub" aria-hidden="true"></span>
+                <span class="contact__title">@anilp07x</span>
+                <span class="contact__desc">GitHub</span>
+                <span class="contact__arrow" aria-hidden="true">↗</span>
+              </a>
+            </div>
           </section>
         </main>
 
         <footer class="foot">
-          <p>Anilson Da Silva Pedro · Luanda, Angola · 8°50′S 13°14′E</p>
-          <p>© <span id="year">2026</span> · HTML, CSS e um pouco de GSAP</p>
+          <p class="foot__id">
+            <img class="foot__mark" src="logo.png" alt="" width="505" height="367">
+            Anilson Da Silva Pedro · Luanda, Angola · 8°50′S 13°14′E
+          </p>
+          <p class="foot__end">
+            <span>© <span id="year">2026</span> · HTML, CSS e um pouco de GSAP</span>
+            <span>Atualizado a 19 de outubro de 2026</span>
+            <a class="foot__top" href="#topo">↑ Topo</a>
+          </p>
         </footer>
       </div>
     </div>

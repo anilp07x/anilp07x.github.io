@@ -91,7 +91,8 @@ body {
 /* O logo é tinta escura: no tema escuro inverte, senão sumia no papel escuro. */
 @media (prefers-color-scheme: dark) {
   .top__name img,
-  .topbar__name img { filter: invert(1); }
+  .topbar__name img,
+  .foot__mark { filter: invert(1); }
 }
 
 .top__nav a,
@@ -268,28 +269,7 @@ h2 {
   font-weight: 700;
 }
 
-/* ---------- fecho ---------- */
-
-/* O herói convida, o fim da página também. Centrado, como o herói, para a
-   página fechar com uma frase grande em vez de se dissolver no rodapé. */
-.section--cta { text-align: center; }
-
-.section--cta h2 {
-  margin-bottom: .85rem;
-  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.9rem);
-  letter-spacing: -.03em;
-}
-
-.cta__lead {
-  margin: 0 auto;
-  max-width: 44ch;
-  font-size: clamp(1.05rem, 1rem + .5vw, 1.3rem);
-  color: var(--muted);
-}
-
-.section--cta .actions { margin-top: 1.5rem; }
-
-/* ---------- listas (projetos e contactos) ---------- */
+/* ---------- listas (projetos e percurso) ---------- */
 
 .list {
   list-style: none;
@@ -322,14 +302,6 @@ h2 {
   font-size: .74rem;
   color: var(--muted);
 }
-
-/* Ícones do contacto, onde os códigos "em/wa/in/gh" estavam. O nome da
-   plataforma já está na linha (row__desc), por isso o ícone é decorativo:
-   aria-hidden no HTML e o data-tip serve só ao popover. */
-.row__num .icon { width: 1.05rem; height: 1.05rem; }
-
-/* Encostado à esquerda: encostado ao centro sairia pelo bordo do ecrã. */
-.row__num .icon::after { content: attr(data-tip); left: 0; translate: 0; }
 
 .row__body { grid-area: body; min-width: 0; }
 
@@ -436,6 +408,86 @@ h2 {
   .row__meta--icons { justify-content: flex-start; }
 
   .row__meta--live { justify-content: flex-start; }
+}
+
+/* ---------- contactos ---------- */
+
+/* Três canais, um por coluna: o ecrã passa a fazer a régua que as linhas
+   faziam. Cada bloco continua a ser um link, por isso mantém a inversão e o
+   popover do ícone — o ícone é decorativo (aria-hidden), o nome do canal está
+   no bloco e o data-tip serve só ao popover. */
+.contacts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: var(--hair);
+}
+
+.contact {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: .45rem;
+  padding: 1.4rem 1.15rem;
+  border-bottom: var(--hair);
+  color: inherit;
+  text-decoration: none;
+  transition: background-color .18s var(--ease), color .18s var(--ease);
+  /* O popover do ícone inverte com o bloco, senão era tinta sobre tinta. */
+  --tip-bg: var(--bg);
+  --tip-fg: var(--fg);
+}
+
+/* Régua entre colunas, sem fechar os bordos da grelha. */
+.contact + .contact { border-left: var(--hair); }
+
+.contact .icon { width: 1.5rem; height: 1.5rem; }
+
+/* Encostado à esquerda: encostado ao centro sairia pelo bordo do ecrã. */
+.contact .icon::after { content: attr(data-tip); left: 0; translate: 0; }
+
+.contact__title {
+  font-weight: 600;
+  letter-spacing: -.01em;
+  overflow-wrap: anywhere;
+}
+
+.contact__desc {
+  font-size: .95rem;
+  color: var(--muted);
+  transition: color .18s var(--ease);
+}
+
+/* Seta no canto, onde a linha a tinha no fim da grelha. */
+.contact__arrow {
+  position: absolute;
+  top: 1.4rem;
+  right: 1.15rem;
+  color: var(--muted);
+  transition: color .18s var(--ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .contact:hover {
+    background: var(--fg);
+    color: var(--bg);
+    --muted: var(--on-inverse-soft);
+  }
+}
+
+.contact:focus-visible {
+  background: var(--fg);
+  color: var(--bg);
+  --muted: var(--on-inverse-soft);
+  outline: 2px solid var(--fg);
+  outline-offset: 2px;
+}
+
+/* Empilhados: com três canais, duas colunas deixariam um buraco na última
+   linha, por isso o corte é direto para uma. */
+@media (max-width: 760px) {
+  .contacts { grid-template-columns: 1fr; }
+
+  .contact + .contact { border-left: 0; }
 }
 
 /* ---------- percurso ---------- */
@@ -662,7 +714,7 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  gap: .4rem 1.5rem;
+  gap: .5rem 1.5rem;
   border-top: var(--hair);
   padding-block: 1.8rem 2.5rem;
   font-family: var(--mono);
@@ -673,6 +725,31 @@ h2 {
 }
 
 .foot p { margin: 0; }
+
+.foot__id {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+.foot__mark { display: block; width: auto; height: 1.15rem; }
+
+/* Data e regresso ao topo à direita; em ecrã estreito quebram sob a
+   identificação, que fica com a linha toda. */
+.foot__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .3rem 1.5rem;
+}
+
+.foot__top {
+  color: inherit;
+  text-decoration: none;
+  transition: color .18s var(--ease);
+}
+
+.foot__top:hover { color: var(--fg); }
 
 /* ---------- responsivo ---------- */
 
@@ -766,7 +843,9 @@ h2 {
   .topbar,
   .skip,
   .hero__field,
-  .row__arrow { display: none !important; }
+  .foot__top,
+  .row__arrow,
+  .contact__arrow { display: none !important; }
 
   .hero { min-height: 0; }
   .section { padding-block: 1.1rem; }
@@ -774,6 +853,7 @@ h2 {
   p { orphans: 3; widows: 3; }
   h2 { break-after: avoid; }
   .list > li,
+  .contact,
   .stack > div { break-inside: avoid; }
 
   /* Botões a tinta e contorno: fundo cheio pode não imprimir de todo. */
@@ -784,14 +864,15 @@ h2 {
   /* O logo é tinta escura, sempre. (No tema escuro do sistema ele inverte —
      mas aí o papel é branco.) */
   .top__name img,
-  .topbar__name img { filter: none !important; }
+  .topbar__name img,
+  .foot__mark { filter: none !important; }
 
   /* Nome do ícone em texto no lugar da máscara. `display: inline` no próprio
      .icon, para o texto do popover deixar de ser tratado como item de flex. */
   .icon,
   .stack__icons .icon,
   .row__meta--icons .icon,
-  .row__num .icon { display: inline; width: auto; height: auto; }
+  .contact .icon { display: inline; width: auto; height: auto; }
 
   .icon::before { display: none !important; }
 
@@ -808,8 +889,9 @@ h2 {
     transform: none;
   }
 
-  /* O do contacto é decorativo: o nome já está na linha (evitava duplicar). */
-  .row__num .icon::after { content: none; }
+  /* O dos contactos é decorativo: o nome do canal já está no bloco
+     (evitava duplicar). */
+  .contact .icon::after { content: none; }
 
   /* Em papel não se clica: cada projeto passa a mostrar o seu endereço. */
   .row[href^="http"]::after {
@@ -824,5 +906,8 @@ h2 {
 
   .row,
   .row:focus-visible,
-  .row:hover { background: none; color: var(--fg); outline: 0; }
+  .row:hover,
+  .contact,
+  .contact:focus-visible,
+  .contact:hover { background: none; color: var(--fg); outline: 0; }
 }

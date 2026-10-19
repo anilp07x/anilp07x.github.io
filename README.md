@@ -6,14 +6,15 @@ scroll; o herói tem um campo de pontos desenhado em canvas.
 
 ## Publicar no GitHub Pages
 
-1. Crie um repositório no GitHub (por exemplo `prtfolio`).
+1. Crie o repositório `anilp07x.github.io` (site de utilizador: fica servido na
+   raiz do domínio).
 2. Envie estes ficheiros:
 
    ```bash
    git init -b main
    git add .
    git commit -m "Portfólio minimalista"
-   git remote add origin https://github.com/anilp07x/prtfolio.git
+   git remote add origin https://github.com/anilp07x/anilp07x.github.io.git
    git push -u origin main
    ```
 
@@ -23,19 +24,17 @@ scroll; o herói tem um campo de pontos desenhado em canvas.
 
    | Repositório | Endereço |
    |---|---|
-   | `anilp07x.github.io` | `https://anilp07x.github.io/` |
+   | `anilp07x.github.io` | `https://anilp07x.github.io/` — este site |
    | qualquer outro nome | `https://anilp07x.github.io/<nome-do-repo>/` |
 
 5. (Opcional) Domínio próprio: **Settings → Pages → Custom domain**.
 
-### Antes de publicar: corrigir o endereço
+### Endereço
 
-O código usa `https://anilp07x.github.io/prtfolio/` como exemplo. Se o endereço
-final for diferente, atualize:
-
-- `index.html` — `rel="canonical"`, `og:url`, `og:image` e `twitter:image`
-- `robots.txt` — linha `Sitemap:`
-- `sitemap.xml` — `<loc>`
+O site está publicado como site de utilizador, em
+`https://anilp07x.github.io/`, e os endereços absolutos do código já apontam
+para lá: `index.html` (`rel="canonical"`, `og:url`, `og:image` e
+`twitter:image`), `robots.txt` (linha `Sitemap:`) e `sitemap.xml` (`<loc>`).
 
 Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 

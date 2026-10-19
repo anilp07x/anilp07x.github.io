@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-# Atualize se o site não ficar em https://anilp07x.github.io/prtfolio/
-Sitemap: https://anilp07x.github.io/prtfolio/sitemap.xml
+# Site de utilizador: servido na raiz de https://anilp07x.github.io/
+Sitemap: https://anilp07x.github.io/sitemap.xml

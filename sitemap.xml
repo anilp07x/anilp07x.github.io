@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Atualize o endereço se o site não ficar em https://anilp07x.github.io/prtfolio/ -->
+<!-- Site de utilizador: servido na raiz de https://anilp07x.github.io/ -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://anilp07x.github.io/prtfolio/</loc>
+    <loc>https://anilp07x.github.io/</loc>
     <lastmod>2026-10-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>

@@ -17,7 +17,15 @@
   <meta property="og:title" content="Anilson Da Silva Pedro — Full-stack Developer">
   <meta property="og:description" content="Aplicações web de ponta a ponta: React, Node.js, Laravel e Python. Luanda, Angola.">
   <meta property="og:url" content="https://anilp07x.github.io/prtfolio/">
-  <meta name="twitter:card" content="summary">
+  <!-- Cartão de partilha: a imagem é gerada a partir do logo (1200×630, papel
+       e tinta). Sem ela o WhatsApp e o LinkedIn partilham texto sem nenhuma
+       imagem. Endereço a atualizar com os de cima, se o site mudar. -->
+  <meta property="og:image" content="https://anilp07x.github.io/prtfolio/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Anilson Da Silva Pedro — Full-stack Developer, Luanda, Angola">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://anilp07x.github.io/prtfolio/og.png">
 
   <link rel="icon" href="favicon.png" type="image/png" sizes="192x192">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -39,6 +47,23 @@
   <!-- O link de saltar fica fora do conteúdo suavizado: em foco aparece
        sempre no canto do ecrã, independentemente da posição do scroll. -->
   <a class="skip" href="#projetos">Saltar para os projetos</a>
+
+  <!-- Barra persistente. Vive fora do wrapper do ScrollSmoother (que é fixo),
+       por isso não é arrastada pelo conteúdo; aparece quando o cabeçalho sai
+       de ecrã e marca a secção ativa. Sem JavaScript nunca aparece e o
+       cabeçalho normal continua a fazer o trabalho. -->
+  <div class="topbar" data-topbar>
+    <div class="wrap topbar__inner">
+      <a class="topbar__name" href="#topo">
+        <img src="logo.png" alt="Anilson Da Silva Pedro" width="505" height="367">
+      </a>
+      <nav class="topbar__nav" aria-label="Navegação rápida">
+        <a href="#projetos">Projetos</a>
+        <a href="#stack">Stack</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </div>
 
   <!-- Estrutura pedida pelo ScrollSmoother: o wrapper é fixo e o conteúdo
        é deslocado por transform. Sem JavaScript os dois divs são blocos
@@ -84,7 +109,10 @@
                     <span class="row__title">Tutorando</span>
                     <span class="row__desc">Rede social académica de Angola: tutores, instituições e estudantes no mesmo sítio.</span>
                   </span>
-                  <span class="row__meta">Online · tutorando.net</span>
+                  <span class="row__meta row__meta--live">
+                    <span class="row__live">Online</span>
+                    <span>tutorando.net</span>
+                  </span>
                   <span class="row__arrow" aria-hidden="true">↗</span>
                 </a>
               </li>
@@ -213,7 +241,7 @@
             <ul class="list">
               <li data-reveal>
                 <a class="row" href="mailto:anilpedro07@gmail.com">
-                  <span class="row__num">em</span>
+                  <span class="row__num"><span class="icon icon--gmail" data-tip="E-mail" aria-hidden="true"></span></span>
                   <span class="row__body">
                     <span class="row__title">anilpedro07@gmail.com</span>
                     <span class="row__desc">E-mail</span>
@@ -224,7 +252,7 @@
               </li>
               <li data-reveal data-delay="0.04">
                 <a class="row" href="https://wa.me/244924237761" target="_blank" rel="noopener">
-                  <span class="row__num">wa</span>
+                  <span class="row__num"><span class="icon icon--whatsapp" data-tip="WhatsApp" aria-hidden="true"></span></span>
                   <span class="row__body">
                     <span class="row__title">+244 924 237 761</span>
                     <span class="row__desc">WhatsApp</span>
@@ -235,7 +263,7 @@
               </li>
               <li data-reveal data-delay="0.08">
                 <a class="row" href="https://www.linkedin.com/in/anilson-pedro" target="_blank" rel="noopener">
-                  <span class="row__num">in</span>
+                  <span class="row__num"><span class="icon icon--linkedin" data-tip="LinkedIn" aria-hidden="true"></span></span>
                   <span class="row__body">
                     <span class="row__title">anilson-pedro</span>
                     <span class="row__desc">LinkedIn</span>
@@ -246,7 +274,7 @@
               </li>
               <li data-reveal data-delay="0.12">
                 <a class="row" href="https://github.com/anilp07x" target="_blank" rel="noopener">
-                  <span class="row__num">gh</span>
+                  <span class="row__num"><span class="icon icon--github" data-tip="GitHub" aria-hidden="true"></span></span>
                   <span class="row__body">
                     <span class="row__title">@anilp07x</span>
                     <span class="row__desc">GitHub</span>
@@ -256,6 +284,15 @@
                 </a>
               </li>
             </ul>
+          </section>
+
+          <!-- Fecho da página: o herói convida, o fim também. -->
+          <section class="section section--cta" id="falar" aria-labelledby="falar-h" data-reveal>
+            <h2 id="falar-h">Vamos conversar</h2>
+            <p class="cta__lead">Tens um projeto ou uma ideia? Escreve-me.</p>
+            <p class="actions">
+              <a class="btn btn--ink" href="https://wa.me/244924237761?text=Ol%C3%A1%20Anilson%2C%20vi%20o%20seu%20portf%C3%B3lio." target="_blank" rel="noopener">Falar no WhatsApp</a>
+            </p>
           </section>
         </main>
 

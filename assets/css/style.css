@@ -70,7 +70,8 @@ body {
   padding-block: 1.6rem;
 }
 
-.top__nav {
+.top__nav,
+.topbar__nav {
   display: flex;
   gap: 1.1rem;
   font-family: var(--mono);
@@ -80,22 +81,74 @@ body {
 }
 
 /* O nome é o logo (imagem), não texto. */
-.top__name { display: inline-flex; }
+.top__name,
+.topbar__name { display: inline-flex; }
 
 .top__name img { display: block; width: auto; height: 1.6rem; }
 
+.topbar__name img { display: block; width: auto; height: 1.15rem; }
+
 /* O logo é tinta escura: no tema escuro inverte, senão sumia no papel escuro. */
 @media (prefers-color-scheme: dark) {
-  .top__name img { filter: invert(1); }
+  .top__name img,
+  .topbar__name img { filter: invert(1); }
 }
 
-.top__nav a {
+.top__nav a,
+.topbar__nav a {
+  position: relative;
   color: var(--muted);
   text-decoration: none;
   transition: color .18s var(--ease);
 }
 
-.top__nav a:hover { color: var(--fg); }
+.top__nav a:hover,
+.topbar__nav a:hover { color: var(--fg); }
+
+/* ---------- barra persistente ---------- */
+
+/* Vive fora do wrapper do ScrollSmoother (que é fixo), por isso não é
+   arrastada pelo conteúdo. Sem JavaScript nunca é ativada e o cabeçalho
+   normal continua a fazer o trabalho. */
+.topbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 8;
+  visibility: hidden;
+  transform: translateY(-100%);
+  background: var(--bg);
+  border-bottom: var(--hair);
+  transition: transform .3s var(--ease), visibility 0s linear .3s;
+}
+
+/* Na saída o `visibility` atrasa, para a barra não desaparecer de repente
+   enquanto desliza. Escondida fica fora da árvore de acessibilidade e do tab. */
+.topbar.is-on {
+  visibility: visible;
+  transform: none;
+  transition: transform .3s var(--ease), visibility 0s;
+}
+
+.topbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.5rem;
+  padding-block: .7rem;
+}
+
+/* Secção ativa: tinta cheia e um filete por baixo, como as réguas da página. */
+.topbar__nav a.is-active { color: var(--fg); }
+
+.topbar__nav a.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -.35em;
+  height: 1px;
+  background: currentColor;
+}
 
 /* ---------- herói ---------- */
 
@@ -215,6 +268,27 @@ h2 {
   font-weight: 700;
 }
 
+/* ---------- fecho ---------- */
+
+/* O herói convida, o fim da página também. Centrado, como o herói, para a
+   página fechar com uma frase grande em vez de se dissolver no rodapé. */
+.section--cta { text-align: center; }
+
+.section--cta h2 {
+  margin-bottom: .85rem;
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.9rem);
+  letter-spacing: -.03em;
+}
+
+.cta__lead {
+  margin: 0 auto;
+  max-width: 44ch;
+  font-size: clamp(1.05rem, 1rem + .5vw, 1.3rem);
+  color: var(--muted);
+}
+
+.section--cta .actions { margin-top: 1.5rem; }
+
 /* ---------- listas (projetos e contactos) ---------- */
 
 .list {
@@ -236,6 +310,10 @@ h2 {
   color: inherit;
   text-decoration: none;
   transition: background-color .18s var(--ease), color .18s var(--ease);
+  /* O popover de qualquer ícone dentro da linha inverte com ela, senão seria
+     tinta sobre tinta na inversão do hover. */
+  --tip-bg: var(--bg);
+  --tip-fg: var(--fg);
 }
 
 .row__num {
@@ -244,6 +322,14 @@ h2 {
   font-size: .74rem;
   color: var(--muted);
 }
+
+/* Ícones do contacto, onde os códigos "em/wa/in/gh" estavam. O nome da
+   plataforma já está na linha (row__desc), por isso o ícone é decorativo:
+   aria-hidden no HTML e o data-tip serve só ao popover. */
+.row__num .icon { width: 1.05rem; height: 1.05rem; }
+
+/* Encostado à esquerda: encostado ao centro sairia pelo bordo do ecrã. */
+.row__num .icon::after { content: attr(data-tip); left: 0; translate: 0; }
 
 .row__body { grid-area: body; min-width: 0; }
 
@@ -266,12 +352,37 @@ h2 {
   color: var(--muted);
 }
 
-/* Stack do projeto em ícones, encostada à direita como o texto era. Numa linha
-   invertida (hover/foco) o popover inverte também, senão seria tinta sobre
-   tinta. */
+/* Selo do projeto que está ao vivo. Borda e ponto a currentColor, por isso
+   acompanham a inversão da linha sem nada especial. */
+.row__meta--live {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .45rem .7rem;
+}
+
+.row__live {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .12rem .45rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: .66rem;
+  letter-spacing: .12em;
+}
+
+.row__live::before {
+  content: "";
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* Stack do projeto em ícones, encostada à direita como o texto era. */
 .row__meta--icons {
-  --tip-bg: var(--bg);
-  --tip-fg: var(--fg);
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -322,6 +433,8 @@ h2 {
   .row__meta { margin-top: .15rem; text-align: left; }
 
   .row__meta--icons { justify-content: flex-start; }
+
+  .row__meta--live { justify-content: flex-start; }
 }
 
 /* ---------- stack ---------- */
@@ -458,6 +571,10 @@ h2 {
 .icon--jwt               { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M10.2 0v6.456L12 8.928l1.8-2.472V0zm3.6 6.456v3.072l2.904-.96L20.52 3.36l-2.928-2.136zm2.904 2.112l-1.8 2.496 2.928.936 6.144-1.992-1.128-3.432zM17.832 12l-2.928.936 1.8 2.496 6.144 1.992 1.128-3.432zm-1.128 3.432l-2.904-.96v3.072l3.792 5.232 2.928-2.136zM13.8 17.544L12 15.072l-1.8 2.472V24h3.6zm-3.6 0v-3.072l-2.904.96L3.48 20.64l2.928 2.136zm-2.904-2.112l1.8-2.496L6.168 12 .024 13.992l1.128 3.432zM6.168 12l2.928-.936-1.8-2.496-6.144-1.992-1.128 3.432zm1.128-3.432l2.904.96V6.456L6.408 1.224 3.48 3.36Z'/%3E%3C/svg%3E"); }
 .icon--inertia           { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6.901 5.331H0L6.669 12 0 18.669h6.901L13.571 12 6.9 5.331zm10.43 0H10.43L17.099 12l-6.67 6.669h6.902L24 12l-6.669-6.669z'/%3E%3C/svg%3E"); }
 .icon--googlechrome      { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0C8.21 0 4.831 1.757 2.632 4.501l3.953 6.848A5.454 5.454 0 0 1 12 6.545h10.691A12 12 0 0 0 12 0zM1.931 5.47A11.943 11.943 0 0 0 0 12c0 6.012 4.42 10.991 10.189 11.864l3.953-6.847a5.45 5.45 0 0 1-6.865-2.29zm13.342 2.166a5.446 5.446 0 0 1 1.45 7.09l.002.001h-.002l-5.344 9.257c.206.01.413.016.621.016 6.627 0 12-5.373 12-12 0-1.54-.29-3.011-.818-4.364zM12 16.364a4.364 4.364 0 1 1 0-8.728 4.364 4.364 0 0 1 0 8.728Z'/%3E%3C/svg%3E"); }
+.icon--gmail             { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-2.023 2.309-3.178 3.927-1.964L5.455 4.64 12 9.548l6.545-4.91 1.528-1.145C21.69 2.28 24 3.434 24 5.457z'/%3E%3C/svg%3E"); }
+.icon--whatsapp          { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z'/%3E%3C/svg%3E"); }
+.icon--linkedin          { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z'/%3E%3C/svg%3E"); }
+.icon--github            { --icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E"); }
 
 @media (max-width: 560px) {
   .stack > div { grid-template-columns: 1fr; }
@@ -525,4 +642,111 @@ h2 {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+}
+
+/* ---------- impressão ---------- */
+/* Quem imprime (ou guarda em PDF) quer texto e endereços legíveis. Duas coisas
+   ficariam destruídas em papel: o wrapper do ScrollSmoother é fixo e o
+   conteúdo é deslocado por transform — sem o desmontar saía cortado ao
+   primeiro ecrã — e as revelações do JS ainda não executadas deixariam
+   blocos invisíveis. Os ícones dependem de máscara+background: com "gráficos
+   de fundo" desligados sumiam, por isso passam a nome em texto. */
+@media print {
+  html,
+  body {
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  #smooth-wrapper,
+  #smooth-content {
+    position: static !important;
+    transform: none !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  :root {
+    color-scheme: light;
+    /* Papel branco, tinta preta — mesmo para quem imprime no tema escuro. */
+    --bg: #fff;
+    --fg: #000;
+    --muted: #333;
+    --line: #ccc;
+    --on-inverse-soft: #333;
+    --wrap: 100%;
+    --pad: 0;
+  }
+
+  *, *::before, *::after {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  /* Nada de decoração ou controlos que só fazem sentido no ecrã. */
+  .topbar,
+  .skip,
+  .hero__field,
+  .row__arrow { display: none !important; }
+
+  .hero { min-height: 0; }
+  .section { padding-block: 1.1rem; }
+
+  p { orphans: 3; widows: 3; }
+  h2 { break-after: avoid; }
+  .list > li,
+  .stack > div { break-inside: avoid; }
+
+  /* Botões a tinta e contorno: fundo cheio pode não imprimir de todo. */
+  .btn,
+  .btn--ink,
+  .btn--ink:hover { background: none; color: var(--fg); border-color: var(--fg); }
+
+  /* O logo é tinta escura, sempre. (No tema escuro do sistema ele inverte —
+     mas aí o papel é branco.) */
+  .top__name img,
+  .topbar__name img { filter: none !important; }
+
+  /* Nome do ícone em texto no lugar da máscara. `display: inline` no próprio
+     .icon, para o texto do popover deixar de ser tratado como item de flex. */
+  .icon,
+  .stack__icons .icon,
+  .row__meta--icons .icon,
+  .row__num .icon { display: inline; width: auto; height: auto; }
+
+  .icon::before { display: none !important; }
+
+  .icon::after {
+    position: static;
+    display: inline;
+    padding: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    white-space: normal;
+    translate: none;
+    transform: none;
+  }
+
+  /* O do contacto é decorativo: o nome já está na linha (evitava duplicar). */
+  .row__num .icon::after { content: none; }
+
+  /* Em papel não se clica: cada projeto passa a mostrar o seu endereço. */
+  .row[href^="http"]::after {
+    content: attr(href);
+    grid-column: 2 / -1;
+    font-family: var(--mono);
+    font-size: .68rem;
+    letter-spacing: .01em;
+    color: var(--muted);
+    word-break: break-all;
+  }
+
+  .row,
+  .row:focus-visible,
+  .row:hover { background: none; color: var(--fg); outline: 0; }
 }

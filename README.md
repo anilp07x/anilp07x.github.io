@@ -33,7 +33,7 @@ scroll; o herói tem um campo de pontos desenhado em canvas.
 O código usa `https://anilp07x.github.io/prtfolio/` como exemplo. Se o endereço
 final for diferente, atualize:
 
-- `index.html` — `rel="canonical"` e `og:url`
+- `index.html` — `rel="canonical"`, `og:url`, `og:image` e `twitter:image`
 - `robots.txt` — linha `Sitemap:`
 - `sitemap.xml` — `<loc>`
 
@@ -45,6 +45,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 .
 ├── index.html          conteúdo real (funciona mesmo sem JavaScript)
 ├── logo.png            marca do cabeçalho
+├── og.png              cartão de partilha 1200×630, feito a partir de logo.png
 ├── favicon.png         marca num quadrado de papel, gerada a partir de logo.png
 ├── .nojekyll           impede o Jekyll de processar o site
 ├── robots.txt
@@ -65,6 +66,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 | Stack de cada projeto | `index.html`, `#projetos`, dentro de `<span class="row__meta row__meta--icons">` |
 | Desenho dos ícones | `assets/css/style.css`, regras `.icon--*` (SVG do simple-icons em data URI) |
 | Marca (cabeçalho) | `logo.png`; o `favicon.png` é derivado dele |
+| Cartão de partilha | `og.png` (1200×630), também feito a partir de `logo.png` |
 | Contactos | `index.html`, secção `#contacto` |
 | Cores | `assets/css/style.css`, bloco `:root` |
 
@@ -103,7 +105,27 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   rato aparece um pequeno popover com o nome (só em dispositivos com rato; no
   toque o `aria-label` continua a chegar aos leitores de ecrã). Os desenhos são do
   [simple-icons](https://simpleicons.org/); o C# usa o logo do .NET (o simple-icons
-  já não traz C#) e o Guzzle, por não ter logotipo, fica como texto.
+  já não traz C#) e o Guzzle, por não ter logotipo, fica como texto. Nos contactos
+  (email, WhatsApp, LinkedIn e GitHub) é o mesmo desenho, mas decorativo
+  (`aria-hidden`), porque o nome já está na linha; o popover lê-o de `data-tip`.
+- **Cartão de partilha** (`og.png`): 1200×630 com a marca, o nome, o cargo e a
+  stack, para o WhatsApp e o LinkedIn não partilharem só texto. É desenhado a
+  partir de `logo.png`, com tipografia do sistema (o nome encolhe se não couber).
+- **Barra persistente**: quando o cabeçalho sai de ecrã aparece uma barra fixa
+  com o logo e atalhos para as três secções, assinalando aquela em que se está.
+  Vive fora do wrapper do ScrollSmoother, por isso não é arrastada pelo conteúdo,
+  e acompanha o scroll quadro a quadro — o smoother continua a mexer a página
+  depois do último evento de scroll. É conforto, não dependência: sem JavaScript
+  nunca aparece e o cabeçalho normal continua a fazer o trabalho.
+- **Selo e fecho**: a linha do Tutorando (o projeto em produção) leva um selo
+  "Online" que acompanha a inversão da linha; o fim da página fecha com
+  "Vamos conversar" e um único botão de WhatsApp.
+- **Impressão e PDF**: o bloco `@media print` desmonta o wrapper do
+  ScrollSmoother (fixo e deslocado por *transform*: em papel sairia cortado ao
+  primeiro ecrã), força papel branco e tinta preta mesmo no tema escuro, mostra
+  já os blocos que o JavaScript ainda não revelou, troca os ícones pelo nome em
+  texto (uma máscara CSS não imprime com os gráficos de fundo desligados) e
+  junta o endereço a cada projeto, que em papel não se clica.
 - **Movimento reduzido** (`prefers-reduced-motion: reduce`) desliga as animações
   e o scroll suavizado, ficando o scroll e o texto nativos.
 - Os blocos aparecem quando entram no ecrã (IntersectionObserver), com um

@@ -10,6 +10,16 @@
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var gsapReady = typeof window.gsap !== 'undefined';
   var canObserve = 'IntersectionObserver' in window;
+
+  /* A barra persistente é navegação, não decoração: não usa GSAP nem faz
+     movimento por conta própria, por isso corre com JS puro — mesmo com
+     movimento reduzido ou sem bibliotecas nenhuma. */
+  try {
+    topBar();
+  } catch (err) {
+    console.warn('Barra do topo desativada:', err);
+  }
+
   if (!gsapReady || reduced || !canObserve) return;
 
   /* O scroll suavizado entra primeiro: fixa o wrapper e acerta a altura do
@@ -388,6 +398,64 @@
       if (tl.progress() < 1) tl.progress(1);
       if (field) field.settle();
     }, 3600);
+  }
+
+  /* Barra persistente: aparece quando o cabeçalho sai de ecrã e assinala a
+     secção que se está a ler. Sem JavaScript a barra fica escondida para
+     sempre e o cabeçalho normal faz o trabalho — é conforto, não dependência.
+
+     O ScrollSmoother apanha o scroll com atraso, e o atraso continua a
+     mexer-se depois de já não haver eventos de scroll: por isso o quadro de
+     trabalho não morre de imediato, fica vivo enquanto houver mexida na
+     página por acompanhar. */
+  function topBar() {
+    var bar = document.querySelector('[data-topbar]');
+    var head = document.querySelector('.top');
+    if (!bar || !head) return;
+
+    var targets = [];
+    Array.prototype.forEach.call(bar.querySelectorAll('a[href^="#"]'), function (a) {
+      var id = a.getAttribute('href').slice(1);
+      var el = id && document.getElementById(id);
+      if (el) targets.push({ a: a, el: el });
+    });
+    if (!targets.length) return;
+
+    function update() {
+      bar.classList.toggle('is-on', head.getBoundingClientRect().bottom <= 1);
+
+      /* A secção ativa é a última cujo topo já passou dos 40% do ecrã: fica
+         certo mesmo onde duas secções se sobrepõem e enquanto a última ainda
+         não entrou. */
+      var line = window.innerHeight * .4;
+      var current = null;
+      targets.forEach(function (t) {
+        if (t.el.getBoundingClientRect().top <= line) current = t;
+      });
+      targets.forEach(function (t) {
+        t.a.classList.toggle('is-active', t === current);
+      });
+    }
+
+    var running = false;
+    var quietUntil = 0;
+
+    function tick() {
+      update();
+      if (Date.now() > quietUntil) { running = false; return; }
+      window.requestAnimationFrame(tick);
+    }
+
+    function schedule() {
+      quietUntil = Date.now() + 2000;
+      if (running) return;
+      running = true;
+      window.requestAnimationFrame(tick);
+    }
+
+    update();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
   }
 
   /* Blocos que aparecem à medida que entram no ecrã.

@@ -130,7 +130,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 - **Rodapé**: só a marca — o mesmo logo do cabeçalho (invertido no tema escuro,
   tinta na impressão), com o nome no `alt`, já que não há texto ao lado — o ano
   (atualizado por JavaScript) e um regresso ao topo.
-- **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
+- **Percurso** (`#percurso`): abre com uma frase de entrada (os quatro anos de
+  trabalho a transformar problemas em aplicações), depois experiência (DIGITAL HUB e ASAATtech), formação
   (Engenharia Informática) e formações, com os dados do CV — cada tema
   no seu bloco. As formações levam o logotipo de cada entidade (DataCamp, IBM,
   Anthropic, Microsoft, LinkedIn, freeCodeCamp, HackerRank) e os cursos em texto,

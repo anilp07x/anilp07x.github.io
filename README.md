@@ -124,7 +124,9 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   "Vamos conversar" e um único botão de WhatsApp.
 - **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
   (Engenharia Informática), formações e línguas, com os dados do CV — cada tema
-  no seu bloco. As entradas
+  no seu bloco. As formações levam o logotipo de cada entidade (DataCamp, IBM,
+  Anthropic, Microsoft, LinkedIn, freeCodeCamp, HackerRank) e os cursos em texto,
+  para não dependerem do hover. As entradas
   são `div`, não `a`, por isso reaproveitam a grelha das listas mas ficam de fora
   da inversão do hover — só o que é clicável se comporta como link.
 - **Impressão e PDF**: o bloco `@media print` desmonta o wrapper do

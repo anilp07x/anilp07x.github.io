@@ -106,7 +106,8 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   rato aparece um pequeno popover com o nome (só em dispositivos com rato; no
   toque o `aria-label` continua a chegar aos leitores de ecrã). Os desenhos são do
   [simple-icons](https://simpleicons.org/); o C# usa o logo do .NET (o simple-icons
-  já não traz C#) e o Guzzle, por não ter logotipo, fica como texto. Nos contactos
+  já não traz C#) e o Guzzle, por não ter logotipo, fica como texto — o mesmo
+  acontece com o WSL na stack. Nos contactos
   (email, WhatsApp, LinkedIn e GitHub) é o mesmo desenho, mas decorativo
   (`aria-hidden`), porque o nome já está na linha; o popover lê-o de `data-tip`.
 - **Cartão de partilha** (`og.png`): 1200×630 com a marca, o nome, o cargo e a

@@ -38,6 +38,10 @@ para lá: `index.html` (`rel="canonical"`, `og:url`, `og:image` e
 
 Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 
+O site está verificado no **Google Search Console** com o ficheiro
+`google8ca342e5a76c39f2.html` na raiz — não apagar: o Google volta a verificar
+de vez em quando. Se a propriedade mudar de conta, gere um ficheiro novo.
+
 ## Estrutura
 
 ```
@@ -49,6 +53,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 ├── .nojekyll           impede o Jekyll de processar o site
 ├── robots.txt
 ├── sitemap.xml
+├── google8ca342e5a76c39f2.html  verificação do site no Search Console
 ├── README.md
 └── assets
     ├── css/style.css   tema claro/escuro automático, hairlines, tipografia do sistema

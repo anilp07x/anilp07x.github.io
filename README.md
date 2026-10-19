@@ -63,7 +63,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 |---|---|
 | Projetos | `index.html`, secção `#projetos` (cada `<li>` liga ao repositório ou ao site em produção) |
 | Stack | `index.html`, secção `#stack` |
-| Percurso (experiência, formação e línguas) | `index.html`, secção `#percurso` |
+| Percurso (experiência, formação e formações) | `index.html`, secção `#percurso` |
 | Stack de cada projeto | `index.html`, `#projetos`, dentro de `<span class="row__meta row__meta--icons">` |
 | Desenho dos ícones | `assets/css/style.css`, regras `.icon--*` (SVG do simple-icons em data URI) |
 | Marca (cabeçalho) | `logo.png`; o `favicon.png` é derivado dele |
@@ -123,7 +123,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   "Online" que acompanha a inversão da linha; o fim da página fecha com
   "Vamos conversar" e um único botão de WhatsApp.
 - **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
-  (Engenharia Informática), formações e línguas, com os dados do CV — cada tema
+  (Engenharia Informática) e formações, com os dados do CV — cada tema
   no seu bloco. As formações levam o logotipo de cada entidade (DataCamp, IBM,
   Anthropic, Microsoft, LinkedIn, freeCodeCamp, HackerRank) e os cursos em texto,
   para não dependerem do hover. As entradas

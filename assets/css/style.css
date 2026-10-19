@@ -460,15 +460,6 @@ h2 {
 /* Linhas que não são links (percurso): mesma grelha, sem convite ao clique. */
 .row--plain { cursor: default; }
 
-/* Texto corrido do percurso (formações, idiomas): mesma medida e tom das
-   descrições das linhas. */
-.percurso__note {
-  margin: 0;
-  max-width: 72ch;
-  font-size: .95rem;
-  color: var(--muted);
-}
-
 /* Formações: uma linha por entidade, com o logotipo no lugar da etiqueta. O
    rótulo é mais largo do que o da stack — a Microsoft & LinkedIn leva dois
    logotipos. (O prefixo .stack é necessário para vencer as regras da grelha

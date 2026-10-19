@@ -38,9 +38,11 @@ para lá: `index.html` (`rel="canonical"`, `og:url`, `og:image` e
 
 Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 
-O site está verificado no **Google Search Console** com o ficheiro
-`google8ca342e5a76c39f2.html` na raiz — não apagar: o Google volta a verificar
-de vez em quando. Se a propriedade mudar de conta, gere um ficheiro novo.
+O site está verificado no **Google Search Console** de duas formas — a etiqueta
+`google-site-verification` no `index.html` e o ficheiro
+`google8ca342e5a76c39f2.html` na raiz. Basta que uma delas continue a existir:
+o Google volta a verificar de vez em quando. Se a propriedade mudar de conta,
+gere valores novos.
 
 ## Estrutura
 

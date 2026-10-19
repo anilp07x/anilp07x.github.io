@@ -405,9 +405,10 @@ h2 {
 .row__meta,
 .row__arrow { transition: color .18s var(--ease); }
 
-/* Inversão no hover: é aqui que o portfólio ganha carácter. */
+/* Inversão no hover: é aqui que o portfólio ganha carácter. As linhas do
+   percurso não são links e por isso ficam de fora. */
 @media (hover: hover) and (pointer: fine) {
-  .row:hover {
+  .row:not(.row--plain):hover {
     background: var(--fg);
     color: var(--bg);
     --muted: var(--on-inverse-soft);
@@ -436,6 +437,31 @@ h2 {
 
   .row__meta--live { justify-content: flex-start; }
 }
+
+/* ---------- percurso ---------- */
+
+/* Etiqueta de subsecção, mono e discreta como as etiquetas da stack. */
+.sub {
+  margin: 2.5rem 0 .6rem;
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--muted);
+}
+
+/* A entrada do percurso ocupa a largura toda com uma medida de leitura. */
+.percurso__lead {
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* Linhas que não são links (percurso): mesma grelha, sem convite ao clique. */
+.row--plain { cursor: default; }
+
+/* A lista e a tabela encostam uma à outra: uma só régua entre elas. */
+.list + .stack { border-top: 0; }
 
 /* ---------- stack ---------- */
 

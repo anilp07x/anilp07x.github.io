@@ -63,6 +63,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 |---|---|
 | Projetos | `index.html`, secção `#projetos` (cada `<li>` liga ao repositório ou ao site em produção) |
 | Stack | `index.html`, secção `#stack` |
+| Percurso (experiência, formação e línguas) | `index.html`, secção `#percurso` |
 | Stack de cada projeto | `index.html`, `#projetos`, dentro de `<span class="row__meta row__meta--icons">` |
 | Desenho dos ícones | `assets/css/style.css`, regras `.icon--*` (SVG do simple-icons em data URI) |
 | Marca (cabeçalho) | `logo.png`; o `favicon.png` é derivado dele |
@@ -86,7 +87,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 - **Scroll suavizado** (ScrollSmoother): o conteúdo é deslocado por *transform*
   dentro de um wrapper fixo, mas a barra de scroll e a altura do documento
   continuam nativas. Em ecrãs táteis mantém-se o scroll nativo. Os links
-  internos (`#projetos`, `#stack`, `#contacto` e voltar ao topo) são conduzidos
+  internos (`#projetos`, `#stack`, `#percurso`, `#contacto` e voltar ao topo) são conduzidos
   pelo plugin, com o foco a seguir para o destino.
 - **Nome do herói** dividido em palavras pelo SplitText, com alternativa própria
   caso o plugin não carregue; o `<h1>` conserva o `aria-label` completo e as
@@ -112,7 +113,7 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
   stack, para o WhatsApp e o LinkedIn não partilharem só texto. É desenhado a
   partir de `logo.png`, com tipografia do sistema (o nome encolhe se não couber).
 - **Barra persistente**: quando o cabeçalho sai de ecrã aparece uma barra fixa
-  com o logo e atalhos para as três secções, assinalando aquela em que se está.
+  com o logo e atalhos para as quatro secções, assinalando aquela em que se está.
   Vive fora do wrapper do ScrollSmoother, por isso não é arrastada pelo conteúdo,
   e acompanha o scroll quadro a quadro — o smoother continua a mexer a página
   depois do último evento de scroll. É conforto, não dependência: sem JavaScript
@@ -120,6 +121,10 @@ Tudo o resto usa caminhos relativos, por isso funciona em qualquer subpasta.
 - **Selo e fecho**: a linha do Tutorando (o projeto em produção) leva um selo
   "Online" que acompanha a inversão da linha; o fim da página fecha com
   "Vamos conversar" e um único botão de WhatsApp.
+- **Percurso** (`#percurso`): experiência (DIGITAL HUB e ASAATtech), formação
+  (Engenharia Informática), formações e línguas, com os dados do CV. As entradas
+  são `div`, não `a`, por isso reaproveitam a grelha das listas mas ficam de fora
+  da inversão do hover — só o que é clicável se comporta como link.
 - **Impressão e PDF**: o bloco `@media print` desmonta o wrapper do
   ScrollSmoother (fixo e deslocado por *transform*: em papel sairia cortado ao
   primeiro ecrã), força papel branco e tinta preta mesmo no tema escuro, mostra

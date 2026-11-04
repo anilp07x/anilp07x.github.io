@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Anilson Da Silva Pedro — Full-stack Developer</title>
-  <meta name="description" content="Full-stack Developer em Luanda, Angola. React, Node.js, Laravel e Python. Projetos, stack e contactos.">
+  <title>Anilson Da Silva Pedro — Desenvolvedor full-stack em Luanda, Angola</title>
+  <meta name="description" content="Anilson Da Silva Pedro, engenheiro de software full-stack em Luanda, Angola. Laravel, PHP, React e Python. Criador do Tutorando e da AngoData API.">
   <meta name="author" content="Anilson Da Silva Pedro">
-  <meta name="color-scheme" content="light dark">
+  <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#f6f6f3" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#101012" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#121015" media="(prefers-color-scheme: dark)">
 
   <!-- Verificação da propriedade no Google Search Console: fica no princípio do
        <head> de propósito, onde o Google a lê. A mesma propriedade também
@@ -19,369 +19,351 @@
   <!-- Publicado como site de utilizador: o repositório anilp07x.github.io
        serve este endereço na raiz. -->
   <link rel="canonical" href="https://anilp07x.github.io/">
-  <meta property="og:type" content="website">
+  <meta property="og:type" content="profile">
+  <meta property="og:site_name" content="Anilson Da Silva Pedro">
   <meta property="og:locale" content="pt_AO">
-  <meta property="og:title" content="Anilson Da Silva Pedro — Full-stack Developer">
-  <meta property="og:description" content="Aplicações web de ponta a ponta: React, Node.js, Laravel e Python. Luanda, Angola.">
+  <meta property="og:title" content="Anilson Da Silva Pedro — Desenvolvedor full-stack em Luanda, Angola">
+  <meta property="og:description" content="Aplicações web de ponta a ponta, de Laravel e PHP a React e Python. Criador do Tutorando e da AngoData API.">
+  <meta property="profile:first_name" content="Anilson">
+  <meta property="profile:last_name" content="Da Silva Pedro">
   <meta property="og:url" content="https://anilp07x.github.io/">
   <!-- Cartão de partilha: a imagem é gerada a partir do logo (1200×630, papel
        e tinta). Sem ela o WhatsApp e o LinkedIn partilham texto sem nenhuma
        imagem. Endereço a atualizar com os de cima, se o site mudar. -->
-  <meta property="og:image" content="https://anilp07x.github.io/og.png">
+  <meta property="og:image" content="https://anilp07x.github.io/og.png?v=2">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Anilson Da Silva Pedro — Full-stack Developer, Luanda, Angola">
+  <meta property="og:image:alt" content="Anilson Da Silva Pedro — Desenvolvedor full-stack, Luanda, Angola">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://anilp07x.github.io/og.png">
+  <meta name="twitter:title" content="Anilson Da Silva Pedro — Desenvolvedor full-stack em Luanda, Angola">
+  <meta name="twitter:description" content="Aplicações web de ponta a ponta, de Laravel e PHP a React e Python. Luanda, Angola.">
+  <meta name="twitter:image:alt" content="Anilson Da Silva Pedro — Desenvolvedor full-stack, Luanda, Angola">
+  <meta name="twitter:image" content="https://anilp07x.github.io/og.png?v=2">
 
   <link rel="icon" href="favicon.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="favicon.png">
+  <link rel="preload" href="assets/fonts/fredoka.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/figtree.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/css/style.css">
 
+  <!-- Dados estruturados: dizem ao Google quem é a pessoa, onde trabalha,
+       onde estuda e quais os perfis que são dela. Manter igual ao que a
+       página mostra (Percurso, Stack, Contacto). -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Anilson Da Silva Pedro",
-    "jobTitle": "Full-stack Developer",
-    "url": "https://anilp07x.github.io/",
-    "email": "mailto:anilpedro07@outlook.com",
-    "address": { "@type": "PostalAddress", "addressLocality": "Luanda", "addressCountry": "AO" },
-    "sameAs": ["https://github.com/anilp07x", "https://www.linkedin.com/in/anilson-pedro"],
-    "knowsAbout": ["TypeScript", "React", "Node.js", "Fastify", "Laravel", "PHP", "Python", "Flask", "Redis", "Vue", "Tailwind CSS", "Vite", "C#"]
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://anilp07x.github.io/#site",
+        "url": "https://anilp07x.github.io/",
+        "name": "Anilson Da Silva Pedro",
+        "inLanguage": "pt-AO",
+        "publisher": { "@id": "https://anilp07x.github.io/#pessoa" }
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://anilp07x.github.io/#pagina",
+        "url": "https://anilp07x.github.io/",
+        "name": "Anilson Da Silva Pedro — Desenvolvedor full-stack em Luanda, Angola",
+        "description": "Anilson Da Silva Pedro, engenheiro de software full-stack em Luanda, Angola. Laravel, PHP, React e Python. Criador do Tutorando e da AngoData API.",
+        "inLanguage": "pt-AO",
+        "isPartOf": { "@id": "https://anilp07x.github.io/#site" },
+        "mainEntity": { "@id": "https://anilp07x.github.io/#pessoa" }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://anilp07x.github.io/#pessoa",
+        "name": "Anilson Da Silva Pedro",
+        "givenName": "Anilson",
+        "familyName": "Da Silva Pedro",
+        "jobTitle": "Engenheiro de Software",
+        "description": "Desenvolvedor full-stack em Luanda, Angola.",
+        "url": "https://anilp07x.github.io/",
+        "image": "https://anilp07x.github.io/og.png?v=2",
+        "email": "mailto:anilpedro07@outlook.com",
+        "address": { "@type": "PostalAddress", "addressLocality": "Luanda", "addressCountry": "AO" },
+        "worksFor": { "@type": "Organization", "name": "Luazeca" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Instituto Superior Politécnico Alvorecer da Juventude" },
+        "sameAs": ["https://github.com/anilp07x", "https://www.linkedin.com/in/anilson-pedro"],
+        "knowsAbout": ["Laravel", "Filament", "PHP", "React", "TypeScript", "Node.js", "Fastify", "Python", "Flask", "Django", "MySQL", "Tailwind CSS", "C#", "PWA"]
+      }
+    ]
   }
   </script>
 </head>
 <body>
-  <!-- O link de saltar fica fora do conteúdo suavizado: em foco aparece
-       sempre no canto do ecrã, independentemente da posição do scroll. -->
-  <a class="skip" href="#projetos">Saltar para os projetos</a>
+  <a class="skip" href="#conteudo">Saltar para o conteúdo</a>
 
-  <!-- Barra persistente. Vive fora do wrapper do ScrollSmoother (que é fixo),
-       por isso não é arrastada pelo conteúdo; aparece quando o cabeçalho sai
-       de ecrã e marca a secção ativa. Sem JavaScript nunca aparece e o
-       cabeçalho normal continua a fazer o trabalho. -->
-  <div class="topbar" data-topbar>
-    <div class="wrap topbar__inner">
-      <a class="topbar__name" href="#topo">
-        <img src="logo.png" alt="Anilson Da Silva Pedro" width="505" height="367">
-      </a>
-      <nav class="topbar__nav" aria-label="Navegação rápida">
-        <a href="#projetos">Projetos</a>
-        <a href="#stack">Stack</a>
-        <a href="#percurso">Percurso</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
-    </div>
-  </div>
+  <!-- Luz que segue o cursor (só com rato e movimento normal; ver main.js). -->
+  <div class="spotlight" aria-hidden="true"></div>
 
-  <!-- Estrutura pedida pelo ScrollSmoother: o wrapper é fixo e o conteúdo
-       é deslocado por transform. Sem JavaScript os dois divs são blocos
-       normais e a página rola como sempre. -->
-  <div id="smooth-wrapper">
-    <div id="smooth-content">
-      <div class="wrap">
-        <header class="top" id="topo">
-          <a class="top__name" href="#topo">
-            <img src="logo.png" alt="Anilson Da Silva Pedro" width="505" height="367">
-          </a>
-          <nav class="top__nav" aria-label="Secções">
-            <a href="#projetos">Projetos</a>
-            <a href="#stack">Stack</a>
-            <a href="#percurso">Percurso</a>
-            <a href="#contacto">Contacto</a>
-          </nav>
-        </header>
+  <div class="page">
+    <!-- Coluna da esquerda: fica parada no ecrã largo enquanto o conteúdo
+         rola ao lado. No ecrã estreito é só o topo da página. -->
+    <header class="side">
+      <div>
+        <a class="side__logo" href="#conteudo">
+          <img src="logo.png" alt="Anilson Da Silva Pedro, início" width="505" height="367">
+        </a>
+        <h1 class="side__name">Anilson Da Silva Pedro</h1>
+        <p class="side__role">Desenvolvedor <span class="nowrap">full-stack</span></p>
+        <p class="side__tagline">Aplicações web de ponta a ponta, feitas em Luanda, Angola.</p>
 
-        <main>
-          <section class="hero" aria-labelledby="nome" data-hero>
-            <!-- Campo generativo desenhado em canvas atrás do texto: a grelha
-                 de pontos abre um vazio com a forma do nome. É decoração — sem
-                 JavaScript fica vazio e não se perde informação nenhuma. -->
-            <canvas class="hero__field" data-field aria-hidden="true"></canvas>
-            <span class="hero__rule" aria-hidden="true"></span>
-            <h1 id="nome" data-split-words>Anilson Da Silva Pedro</h1>
-            <div class="hero__foot">
-              <p class="lead">Construo aplicações web de ponta a ponta — do frontend em React às APIs em Node e Laravel.</p>
-              <p class="actions">
-                <a class="btn btn--ink" href="https://wa.me/244924237761?text=Ol%C3%A1%20Anilson%2C%20vi%20o%20seu%20portf%C3%B3lio." target="_blank" rel="noopener">Falar no WhatsApp</a>
-                <a class="btn" href="https://github.com/anilp07x" target="_blank" rel="noopener">Ver o GitHub</a>
-              </p>
-            </div>
-          </section>
-
-          <section class="section" id="projetos" aria-labelledby="projetos-h">
-            <h2 id="projetos-h">Projetos</h2>
-            <ul class="list">
-              <li data-reveal>
-                <a class="row" href="https://tutorando.net/" target="_blank" rel="noopener">
-                  <span class="row__num">01</span>
-                  <span class="row__body">
-                    <span class="row__title">Tutorando</span>
-                    <span class="row__desc">Rede social académica de Angola: tutores, instituições e estudantes no mesmo sítio.</span>
-                  </span>
-                  <span class="row__meta row__meta--live">
-                    <span class="row__live">Online</span>
-                    <span>tutorando.net</span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.04">
-                <a class="row" href="https://github.com/anilp07x/lan-share" target="_blank" rel="noopener">
-                  <span class="row__num">02</span>
-                  <span class="row__body">
-                    <span class="row__title">LAN Share</span>
-                    <span class="row__desc">Troca de texto e ficheiros na rede local, sem internet.</span>
-                  </span>
-                  <span class="row__meta row__meta--icons">
-                    <span class="icon icon--nodejs" role="img" aria-label="Node.js"></span>
-                    <span class="icon icon--fastify" role="img" aria-label="Fastify"></span>
-                    <span class="icon icon--react" role="img" aria-label="React"></span>
-                    <span class="icon icon--pwa" role="img" aria-label="PWA"></span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.08">
-                <a class="row" href="https://github.com/anilp07x/angodata-api" target="_blank" rel="noopener">
-                  <span class="row__num">03</span>
-                  <span class="row__body">
-                    <span class="row__title">AngoData API</span>
-                    <span class="row__desc">REST API com dados públicos de Angola: províncias, municípios, escolas, mercados e hospitais.</span>
-                  </span>
-                  <span class="row__meta row__meta--icons">
-                    <span class="icon icon--python" role="img" aria-label="Python"></span>
-                    <span class="icon icon--flask" role="img" aria-label="Flask"></span>
-                    <span class="icon icon--redis" role="img" aria-label="Redis"></span>
-                    <span class="icon icon--jwt" role="img" aria-label="JWT"></span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.12">
-                <a class="row" href="https://github.com/anilp07x/e-commerce" target="_blank" rel="noopener">
-                  <span class="row__num">04</span>
-                  <span class="row__body">
-                    <span class="row__title">E-commerce</span>
-                    <span class="row__desc">Loja virtual full-stack com catálogo, carrinho e checkout.</span>
-                  </span>
-                  <span class="row__meta row__meta--icons">
-                    <span class="icon icon--laravel" role="img" aria-label="Laravel"></span>
-                    <span class="icon icon--react" role="img" aria-label="React"></span>
-                    <span class="icon icon--inertia" role="img" aria-label="Inertia"></span>
-                    <span class="icon icon--typescript" role="img" aria-label="TypeScript"></span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.16">
-                <a class="row" href="https://github.com/anilp07x/job-search" target="_blank" rel="noopener">
-                  <span class="row__num">05</span>
-                  <span class="row__body">
-                    <span class="row__title">Job Search</span>
-                    <span class="row__desc">Motor de web scraping para portais de emprego e empresas em Angola.</span>
-                  </span>
-                  <span class="row__meta row__meta--icons">
-                    <span class="icon icon--php" role="img" aria-label="PHP"></span>
-                    <span>Guzzle</span>
-                    <span class="icon icon--googlechrome" role="img" aria-label="Chrome headless"></span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-              <li data-reveal data-delay="0.2">
-                <a class="row" href="https://github.com/anilp07x/biblioteca" target="_blank" rel="noopener">
-                  <span class="row__num">06</span>
-                  <span class="row__body">
-                    <span class="row__title">Biblioteca</span>
-                    <span class="row__desc">Sistema de biblioteca com autenticação de utilizadores.</span>
-                  </span>
-                  <span class="row__meta row__meta--icons">
-                    <span class="icon icon--javascript" role="img" aria-label="JavaScript"></span>
-                  </span>
-                  <span class="row__arrow" aria-hidden="true">↗</span>
-                </a>
-              </li>
-            </ul>
-          </section>
-
-          <section class="section" id="stack" aria-labelledby="stack-h">
-            <h2 id="stack-h">Stack</h2>
-            <dl class="stack">
-              <div data-reveal>
-                <dt>Linguagens</dt>
-                <dd class="stack__icons">
-                  <span class="icon icon--typescript" role="img" aria-label="TypeScript"></span>
-                  <span class="icon icon--javascript" role="img" aria-label="JavaScript"></span>
-                  <span class="icon icon--php" role="img" aria-label="PHP"></span>
-                  <span class="icon icon--python" role="img" aria-label="Python"></span>
-                  <span class="icon icon--csharp" role="img" aria-label="C#"></span>
-                  <span class="icon icon--c" role="img" aria-label="C"></span>
-                </dd>
-              </div>
-              <div data-reveal data-delay="0.05">
-                <dt>Frontend</dt>
-                <dd class="stack__icons">
-                  <span class="icon icon--react" role="img" aria-label="React"></span>
-                  <span class="icon icon--vuejs" role="img" aria-label="Vue.js"></span>
-                  <span class="icon icon--tailwindcss" role="img" aria-label="Tailwind CSS"></span>
-                  <span class="icon icon--vite" role="img" aria-label="Vite"></span>
-                  <span class="icon icon--bootstrap" role="img" aria-label="Bootstrap"></span>
-                </dd>
-              </div>
-              <div data-reveal data-delay="0.1">
-                <dt>Backend</dt>
-                <dd class="stack__icons">
-                  <span class="icon icon--nodejs" role="img" aria-label="Node.js"></span>
-                  <span class="icon icon--fastify" role="img" aria-label="Fastify"></span>
-                  <span class="icon icon--laravel" role="img" aria-label="Laravel"></span>
-                  <span class="icon icon--flask" role="img" aria-label="Flask"></span>
-                  <span class="icon icon--django" role="img" aria-label="Django"></span>
-                  <span class="icon icon--livewire" role="img" aria-label="Livewire"></span>
-                </dd>
-              </div>
-              <div data-reveal data-delay="0.15">
-                <dt>Dados</dt>
-                <dd class="stack__icons">
-                  <span class="icon icon--mysql" role="img" aria-label="MySQL"></span>
-                  <span class="icon icon--redis" role="img" aria-label="Redis"></span>
-                  <span class="icon icon--sqlserver" role="img" aria-label="SQL Server"></span>
-                  <span class="icon icon--sqlite" role="img" aria-label="SQLite"></span>
-                </dd>
-              </div>
-              <div data-reveal data-delay="0.2">
-                <dt>Cloud &amp; ferramentas</dt>
-                <dd class="stack__icons">
-                  <span class="icon icon--azure" role="img" aria-label="Microsoft Azure"></span>
-                  <span class="icon icon--wordpress" role="img" aria-label="WordPress"></span>
-                  <span class="icon icon--git" role="img" aria-label="Git"></span>
-                  <span class="icon icon--linux" role="img" aria-label="Linux"></span>
-                  <!-- O simple-icons não tem WSL, por isso fica como texto — o
-                       mesmo tratamento do Guzzle nas linhas de projeto. -->
-                  <span class="stack__text">WSL</span>
-                </dd>
-              </div>
-            </dl>
-          </section>
-
-          <!-- Percurso: os dados do CV. As linhas são divs (não links) e por
-               isso não invertem como as de projetos e contactos. -->
-          <section class="section" id="percurso" aria-labelledby="percurso-h">
-            <h2 id="percurso-h">Percurso</h2>
-            <p class="lead percurso__lead">Há mais de 4 anos que pego em problemas reais e transformo-os em aplicações simples de usar. Penso, desenho e construo, de ponta a ponta.</p>
-
-            <h3 class="sub">Experiência</h3>
-            <ul class="list">
-              <li data-reveal>
-                <div class="row row--plain">
-                  <span class="row__num">01</span>
-                  <span class="row__body">
-                    <span class="row__title">DIGITAL HUB · Desenvolvedor Full Stack</span>
-                    <span class="row__desc">Páginas responsivas e interativas em WordPress, bases de dados em MySQL e otimização de queries.</span>
-                  </span>
-                  <span class="row__meta">Set 2024 – Dez 2025</span>
-                </div>
-              </li>
-              <li data-reveal data-delay="0.05">
-                <div class="row row--plain">
-                  <span class="row__num">02</span>
-                  <span class="row__body">
-                    <span class="row__title">ASAATtech · Desenvolvedor Web</span>
-                    <span class="row__desc">Migrations, rotas e views em Laravel; testes de funcionalidades e identificação de bugs.</span>
-                  </span>
-                  <span class="row__meta">Fev 2024 – Ago 2024</span>
-                </div>
-              </li>
-            </ul>
-
-            <h3 class="sub">Formação</h3>
-            <ul class="list">
-              <li data-reveal>
-                <div class="row row--plain">
-                  <span class="row__num">03</span>
-                  <span class="row__body">
-                    <span class="row__title">Engenharia Informática</span>
-                    <span class="row__desc">Instituto Superior Politécnico Alvorecer da Juventude.</span>
-                  </span>
-                  <span class="row__meta">2021 – Presente</span>
-                </div>
-              </li>
-            </ul>
-
-            <h3 class="sub">Formações (12)</h3>
-            <!-- Uma linha por entidade, com o logotipo no lugar da etiqueta.
-                 Os nomes dos cursos ficam em texto: não dependem do hover. -->
-            <dl class="stack certs">
-              <div data-reveal>
-                <dt><span class="icon icon--datacamp" role="img" aria-label="DataCamp"></span>DataCamp</dt>
-                <dd>Understanding Microsoft Azure · Understanding Cloud Computing · Introduction to Python for Developers · Introduction to GitHub Concepts · Introduction to Shell.</dd>
-              </div>
-              <div data-reveal data-delay="0.04">
-                <dt><span class="icon icon--ibm" role="img" aria-label="IBM"></span>IBM</dt>
-                <dd>SQL and Relational Database 101.</dd>
-              </div>
-              <div data-reveal data-delay="0.08">
-                <dt><span class="icon icon--anthropic" role="img" aria-label="Anthropic"></span>Anthropic</dt>
-                <dd>Claude 101 · Introduction to agent skills · Claude Code 101.</dd>
-              </div>
-              <div data-reveal data-delay="0.12">
-                <dt><span class="icon icon--microsoft" role="img" aria-label="Microsoft"></span><span class="icon icon--linkedin" role="img" aria-label="LinkedIn"></span>Microsoft &amp; LinkedIn</dt>
-                <dd>Fundamentos para Desenvolvimento de Software.</dd>
-              </div>
-              <div data-reveal data-delay="0.16">
-                <dt><span class="icon icon--freecodecamp" role="img" aria-label="freeCodeCamp"></span>freeCodeCamp</dt>
-                <dd>C# Fundamentals.</dd>
-              </div>
-              <div data-reveal data-delay="0.2">
-                <dt><span class="icon icon--hackerrank" role="img" aria-label="HackerRank"></span>HackerRank</dt>
-                <dd>Python Fundamentals.</dd>
-              </div>
-            </dl>
-          </section>
-
-          <section class="section" id="contacto" aria-labelledby="contacto-h">
-            <h2 id="contacto-h">Contacto</h2>
-            <!-- Três canais, um por coluna (em ecrã estreito ficam empilhados).
-                 Cada bloco é um link, por isso mantém a inversão e o popover
-                 do ícone das listas. -->
-            <div class="contacts">
-              <a class="contact" href="mailto:anilpedro07@outlook.com" data-reveal>
-                <span class="icon icon--outlook" data-tip="E-mail" aria-hidden="true"></span>
-                <span class="contact__title">anilpedro07@outlook.com</span>
-                <span class="contact__desc">E-mail</span>
-                <span class="contact__arrow" aria-hidden="true">↗</span>
-              </a>
-              <a class="contact" href="https://wa.me/244924237761" target="_blank" rel="noopener" data-reveal data-delay="0.06">
-                <span class="icon icon--whatsapp" data-tip="WhatsApp" aria-hidden="true"></span>
-                <span class="contact__title">+244 924 237 761</span>
-                <span class="contact__desc">WhatsApp</span>
-                <span class="contact__arrow" aria-hidden="true">↗</span>
-              </a>
-              <a class="contact" href="https://github.com/anilp07x" target="_blank" rel="noopener" data-reveal data-delay="0.12">
-                <span class="icon icon--github" data-tip="GitHub" aria-hidden="true"></span>
-                <span class="contact__title">@anilp07x</span>
-                <span class="contact__desc">GitHub</span>
-                <span class="contact__arrow" aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </section>
-        </main>
-
-        <footer class="foot">
-          <img class="foot__mark" src="logo.png" alt="Anilson Da Silva Pedro" width="505" height="367">
-          <p class="foot__end">
-            <span>© <span id="year">2026</span></span>
-            <a class="foot__top" href="#topo">↑ Topo</a>
-          </p>
-        </footer>
+        <nav class="nav" aria-label="Secções">
+          <ul>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#projetos">Projetos</a></li>
+            <li><a href="#percurso">Percurso</a></li>
+            <li><a href="#stack">Stack</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </nav>
       </div>
-    </div>
+
+      <div class="side__foot">
+        <a class="btn" href="https://wa.me/244924237761?text=Ol%C3%A1%20Anilson%2C%20vi%20o%20seu%20portf%C3%B3lio.">Falar no WhatsApp</a>
+        <ul class="social" aria-label="Contactos">
+          <li><a href="https://github.com/anilp07x" title="GitHub"><span class="icon icon--github" aria-hidden="true"></span><span class="sr-only">GitHub</span></a></li>
+          <li><a href="https://www.linkedin.com/in/anilson-pedro" title="LinkedIn"><span class="icon icon--linkedin" aria-hidden="true"></span><span class="sr-only">LinkedIn</span></a></li>
+          <li><a href="mailto:anilpedro07@outlook.com" title="E-mail"><span class="icon icon--outlook" aria-hidden="true"></span><span class="sr-only">E-mail</span></a></li>
+          <li><a href="https://wa.me/244924237761" title="WhatsApp"><span class="icon icon--whatsapp" aria-hidden="true"></span><span class="sr-only">WhatsApp</span></a></li>
+        </ul>
+      </div>
+    </header>
+
+    <main class="content" id="conteudo" tabindex="-1">
+      <section class="section" id="sobre" aria-labelledby="sobre-h">
+        <h2 id="sobre-h">Sobre</h2>
+        <div class="prose">
+          <p>Trabalho em todo o percurso de uma aplicação web: do frontend em React às APIs em Node, Laravel e Python, com os dados em MySQL. Pego em problemas reais e transformo-os em aplicações simples de usar.</p>
+          <p>Os projetos de que mais gosto são para Angola: o <a href="https://tutorando.net/">Tutorando</a>, uma rede social académica que já está online, e a <a href="https://github.com/anilp07x/angodata-api">AngoData API</a>, com dados públicos do país.</p>
+          <p>Estudo Engenharia Informática no Instituto Superior Politécnico Alvorecer da Juventude desde 2021.</p>
+        </div>
+      </section>
+
+      <section class="section" id="projetos" aria-labelledby="projetos-h">
+        <h2 id="projetos-h">Projetos</h2>
+        <!-- Cada entrada é um link inteiro. No ecrã largo, passar por uma
+             entrada destaca-a e esbate as outras. -->
+        <ol class="entries">
+          <li>
+            <a class="entry" href="https://tutorando.net/">
+              <span class="entry__aside"><span class="badge">Online</span></span>
+              <span class="entry__body">
+                <span class="entry__title">Tutorando <span class="entry__arrow" aria-hidden="true">↗</span></span>
+                <span class="entry__desc">Rede social académica de Angola: tutores, instituições e estudantes no mesmo sítio. Em produção em tutorando.net.</span>
+                <span class="tags"><span>Laravel</span><span>Filament v5</span><span>React</span><span>PWA</span></span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://github.com/anilp07x/angodata-api">
+              <span class="entry__aside">API</span>
+              <span class="entry__body">
+                <span class="entry__title">AngoData API <span class="entry__arrow" aria-hidden="true">↗</span></span>
+                <span class="entry__desc">REST API com dados públicos de Angola: províncias, municípios, escolas, mercados e hospitais.</span>
+                <span class="tags"><span>Python</span><span>Flask</span><span>Redis</span><span>JWT</span></span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://github.com/anilp07x/job-search">
+              <span class="entry__aside">Scraping</span>
+              <span class="entry__body">
+                <span class="entry__title">Job Search <span class="entry__arrow" aria-hidden="true">↗</span></span>
+                <span class="entry__desc">Motor de web scraping para portais de emprego e empresas em Angola.</span>
+                <span class="tags"><span>PHP</span><span>Guzzle</span><span>Chrome headless</span></span>
+              </span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://github.com/anilp07x/lan-share">
+              <span class="entry__aside">PWA</span>
+              <span class="entry__body">
+                <span class="entry__title">LAN Share <span class="entry__arrow" aria-hidden="true">↗</span></span>
+                <span class="entry__desc">Troca de texto e ficheiros na rede local, sem internet.</span>
+                <span class="tags"><span>Node.js</span><span>Fastify</span><span>React</span><span>PWA</span></span>
+              </span>
+            </a>
+          </li>
+        </ol>
+        <p class="more"><a href="https://github.com/anilp07x">Ver todos os repositórios no GitHub <span aria-hidden="true">↗</span></a></p>
+      </section>
+
+      <!-- Percurso: os dados do CV. As entradas não são links, por isso não
+           reagem ao hover. -->
+      <section class="section" id="percurso" aria-labelledby="percurso-h">
+        <h2 id="percurso-h">Percurso</h2>
+        <h3 class="group">Experiência</h3>
+        <ol class="entries">
+          <li>
+            <div class="entry entry--plain">
+              <span class="entry__aside">Mar 2025 – Presente</span>
+              <span class="entry__body">
+                <span class="entry__title">Engenheiro de Software · Luazeca</span>
+                <span class="entry__desc">Desenvolve e mantém aplicações web e módulos de back-end em PHP/Laravel, com arquitetura MVC. Modela e otimiza bases de dados relacionais. Usa Git e GitHub no trabalho em equipa, nos testes e na correção de defeitos.</span>
+                <span class="tags"><span>Laravel</span><span>PHP</span><span>Git</span></span>
+              </span>
+            </div>
+          </li>
+          <li>
+            <div class="entry entry--plain">
+              <span class="entry__aside">Set 2024 – Dez 2025</span>
+              <span class="entry__body">
+                <span class="entry__title">Desenvolvedor full-stack · DIGITAL HUB</span>
+                <span class="entry__desc">Páginas responsivas e interativas em WordPress, bases de dados em MySQL e otimização de queries.</span>
+                <span class="tags"><span>WordPress</span><span>MySQL</span></span>
+              </span>
+            </div>
+          </li>
+        </ol>
+
+        <h3 class="group">Formação</h3>
+        <ol class="entries">
+          <li>
+            <div class="entry entry--plain">
+              <span class="entry__aside">2021 – Presente</span>
+              <span class="entry__body">
+                <span class="entry__title">Engenharia Informática</span>
+                <span class="entry__desc">Instituto Superior Politécnico Alvorecer da Juventude.</span>
+              </span>
+            </div>
+          </li>
+        </ol>
+
+        <!-- As certificações ficam recolhidas: contam, mas não competem com
+             a experiência e os projetos. -->
+        <details class="certs">
+          <summary>Certificações (12)</summary>
+          <dl>
+            <div>
+              <dt><span class="icon icon--datacamp" aria-hidden="true"></span>DataCamp</dt>
+              <dd>Understanding Microsoft Azure, Understanding Cloud Computing, Introduction to Python for Developers, Introduction to GitHub Concepts, Introduction to Shell.</dd>
+            </div>
+            <div>
+              <dt><span class="icon icon--ibm" aria-hidden="true"></span>IBM</dt>
+              <dd>SQL and Relational Database 101.</dd>
+            </div>
+            <div>
+              <dt><span class="icon icon--anthropic" aria-hidden="true"></span>Anthropic</dt>
+              <dd>Claude 101, Introduction to agent skills, Claude Code 101.</dd>
+            </div>
+            <div>
+              <dt><span class="icon icon--microsoft" aria-hidden="true"></span>Microsoft e LinkedIn</dt>
+              <dd>Fundamentos para Desenvolvimento de Software.</dd>
+            </div>
+            <div>
+              <dt><span class="icon icon--freecodecamp" aria-hidden="true"></span>freeCodeCamp</dt>
+              <dd>C# Fundamentals.</dd>
+            </div>
+            <div>
+              <dt><span class="icon icon--hackerrank" aria-hidden="true"></span>HackerRank</dt>
+              <dd>Python Fundamentals.</dd>
+            </div>
+          </dl>
+        </details>
+      </section>
+
+      <section class="section" id="stack" aria-labelledby="stack-h">
+        <h2 id="stack-h">Stack</h2>
+        <!-- Logotipo e nome lado a lado: o nome lê-se sem hover, no toque e em
+             papel; o logotipo é só reconhecimento (aria-hidden). -->
+        <dl class="stack">
+          <div>
+            <dt>Linguagens</dt>
+            <dd>
+              <ul class="tech">
+                <li><span class="icon icon--typescript" aria-hidden="true"></span>TypeScript</li>
+                <li><span class="icon icon--php" aria-hidden="true"></span>PHP</li>
+                <li><span class="icon icon--python" aria-hidden="true"></span>Python</li>
+                <li><span class="icon icon--csharp" aria-hidden="true"></span>C#</li>
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt>Frontend</dt>
+            <dd>
+              <ul class="tech">
+                <li><span class="icon icon--react" aria-hidden="true"></span>React</li>
+                <li><span class="icon icon--tailwindcss" aria-hidden="true"></span>Tailwind CSS</li>
+                <li><span class="icon icon--bootstrap" aria-hidden="true"></span>Bootstrap</li>
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt>Backend</dt>
+            <dd>
+              <ul class="tech">
+                <li><span class="icon icon--nodejs" aria-hidden="true"></span>Node.js</li>
+                <li><span class="icon icon--fastify" aria-hidden="true"></span>Fastify</li>
+                <li><span class="icon icon--laravel" aria-hidden="true"></span>Laravel</li>
+                <li><span class="icon icon--flask" aria-hidden="true"></span>Flask</li>
+                <li><span class="icon icon--django" aria-hidden="true"></span>Django</li>
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt>Dados</dt>
+            <dd>
+              <ul class="tech">
+                <li><span class="icon icon--mysql" aria-hidden="true"></span>MySQL</li>
+                <li><span class="icon icon--sqlserver" aria-hidden="true"></span>SQL Server</li>
+                <li><span class="icon icon--sqlite" aria-hidden="true"></span>SQLite</li>
+              </ul>
+            </dd>
+          </div>
+          <div>
+            <dt>Cloud e ferramentas</dt>
+            <dd>
+              <ul class="tech">
+                <li><span class="icon icon--azure" aria-hidden="true"></span>Microsoft Azure</li>
+                <li><span class="icon icon--git" aria-hidden="true"></span>Git</li>
+                <li><span class="icon icon--linux" aria-hidden="true"></span>Linux</li>
+              </ul>
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="section" id="contacto" aria-labelledby="contacto-h">
+        <h2 id="contacto-h">Contacto</h2>
+        <p class="prose">A forma mais rápida de falar comigo é pelo WhatsApp. Também respondo por e-mail e no LinkedIn.</p>
+        <ul class="entries contacts">
+          <li>
+            <a class="entry" href="https://wa.me/244924237761">
+              <span class="entry__aside">WhatsApp</span>
+              <span class="entry__body"><span class="entry__title">+244 924 237 761 <span class="entry__arrow" aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="mailto:anilpedro07@outlook.com">
+              <span class="entry__aside">E-mail</span>
+              <span class="entry__body"><span class="entry__title">anilpedro07@outlook.com</span></span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://www.linkedin.com/in/anilson-pedro">
+              <span class="entry__aside">LinkedIn</span>
+              <span class="entry__body"><span class="entry__title">anilson-pedro <span class="entry__arrow" aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+          <li>
+            <a class="entry" href="https://github.com/anilp07x">
+              <span class="entry__aside">GitHub</span>
+              <span class="entry__body"><span class="entry__title">@anilp07x <span class="entry__arrow" aria-hidden="true">↗</span></span></span>
+            </a>
+          </li>
+        </ul>
+      </section>
+
+      <footer class="foot">
+        <img class="foot__mark" src="logo.png" alt="" width="505" height="367">
+        <p>Feito à mão em HTML, CSS e JavaScript, com Fredoka e Figtree. Publicado no GitHub Pages. © <span id="year">2026</span></p>
+      </footer>
+    </main>
   </div>
 
-  <script src="assets/vendor/gsap.min.js" defer></script>
-  <script src="assets/vendor/ScrollTrigger.min.js" defer></script>
-  <script src="assets/vendor/ScrollSmoother.min.js" defer></script>
-  <script src="assets/vendor/SplitText.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>
